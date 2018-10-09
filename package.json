@@ -1,29 +1,28 @@
 {
-    "name": "eventpoints-backend",
-    "version": "0.0.1",
-    "description": "API FOR EVENTPOINTS",
-    "main": "api.js",
-    "scripts": {
-      "start": "node api.js",
-      "test": "mocha -R spec tests/spec.js"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/OSWeekends/eventpoints-backend"
-      },
-    "author": "OSWeekends",
-    "license": "SEE LICENSE IN LICENSE",
-    "dependencies": {
-      "goblindb": "0.0.8",
-      "lodash": "^4.17.11",
-      "pillars": "^0.7.1",
-      "scheduled": "*",
-      "uuid": "3.0.1"
-    },
-    "devDependencies": {
-      "superagent": "*",
-      "mocha": "^5.2.0",
-      "assert": "^1.4.1"
-    }
+  "name": "eventpoints-backend",
+  "version": "0.0.1",
+  "description": "API FOR EVENTPOINTS",
+  "main": "api.js",
+  "scripts": {
+    "start": "node api.js",
+    "test": "mocha -R spec tests/spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OSWeekends/eventpoints-backend"
+  },
+  "author": "OSWeekends",
+  "license": "SEE LICENSE IN LICENSE",
+  "dependencies": {
+    "goblindb": "0.0.8",
+    "lodash": "^4.17.11",
+    "pillars": "^0.7.1",
+    "scheduled": "*",
+    "uuid": "3.0.1"
+  },
+  "devDependencies": {
+    "superagent": "*",
+    "mocha": "^5.2.0",
+    "assert": "^1.4.1"
   }
-  
+}
