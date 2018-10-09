@@ -1,5 +1,5 @@
 var project = require('pillars'),
-    GDB = require('goblindb'),
+    GDB = require('goblindb');
     
 // Starting the project
 var eventsApi = project.services.get('http').configure({
