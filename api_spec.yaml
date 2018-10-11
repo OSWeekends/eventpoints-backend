@@ -25,12 +25,12 @@ paths:
         200:
           description: API up and running message
           schema:
-              type: object
-              properties:
-                message: 
-                  type: string
-                required:
-                - message
+            type: object
+            properties:
+              message: 
+                type: string
+            required:
+              - message
   /events:
     get:
       description: |
@@ -99,6 +99,12 @@ paths:
         Gets tech event details by Id
       produces:
         - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of event to fetch
+          required: true
+          type: string
       tags:
         - Events
       responses:
@@ -152,8 +158,5 @@ paths:
                 type: string
         404:
           description: Event not found
-          schema:
-            type: object
-            properties:              
         500:
           description: Internal Server Error
