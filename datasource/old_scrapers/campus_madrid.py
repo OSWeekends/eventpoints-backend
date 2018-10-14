@@ -48,6 +48,6 @@ for day in datajson["objects"]:
             jsonfinal.append(details)
 
 jsonfinal = json.dumps(jsonfinal,sort_keys=True, ensure_ascii=False,indent=4)
-archivo = open("output/campus_madrid.json","w")
+archivo = open("../output/campus_madrid.json","w")
 archivo.write(str((jsonfinal)))
 archivo.close()

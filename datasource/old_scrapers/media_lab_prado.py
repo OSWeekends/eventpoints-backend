@@ -82,7 +82,7 @@ for one_event in one_by_oneevent:
 	jsonfinal.append(currentEvent)
 print (jsonfinal)
 
-text_file = open("output/media-lab-prado.json", "w")
+text_file = open("../output/media-lab-prado.json", "w")
 print("Guardado... en medialab.json")
 text_file.write(json.dumps(jsonfinal, sort_keys=True, ensure_ascii=False, indent=4))
 text_file.close()
