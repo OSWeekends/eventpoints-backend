@@ -48,10 +48,17 @@ app/bower_components
 temp
 package-lock.json
 
-
 # Mac files
 .DS_Store
 
 # Goblin DB
 goblin_db.goblin
 goblin_db.json
+
+# Python
+venv
+__pycache__
+
+# Editors
+.vscode
+.idea
