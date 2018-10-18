@@ -20,6 +20,12 @@ rm -rf swagger-folder
 
 You need to have installed [Swagger Codegen](https://github.com/swagger-api/swagger-codegen)
 
+## Run Lambda Functions in localhost
+
+```
+netlify-lambda serve lambda/events/
+```
+
 ## Other Links
 
 - Frontend repo : https://github.com/OSWeekends/EventPoints
