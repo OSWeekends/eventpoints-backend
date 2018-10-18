@@ -1,7 +1,8 @@
 const events = require("./events.json")
 
 exports.handler = function(event, context, callback) {
-  const response = "/events" === event.path ? events : events[2]
+  const lastPartOfPath = event.path.split("/").pop(),
+    response = "events" === lastPartOfPath ? events : events[2]
 
   callback(null, {
     statusCode: 200,
