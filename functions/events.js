@@ -1,4 +1,4 @@
-const events = require("./events.json")
+import events from "./events.json"
 console.log(events)
 exports.handler = function(event, context, callback) {
   callback(null, {
