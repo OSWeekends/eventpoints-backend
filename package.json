@@ -1,0 +1,18 @@
+{
+  "name": "eventpoints-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:OSWeekends/eventpoints-backend.git",
+  "author": "Sejas <antonio@sejas.es>",
+  "license": "MIT",
+  "dependencies": {
+    "netlify-lambda": "^1.0.2"
+  },
+  "scripts": {
+    "clean": "rm -rf functions && mkdir functions",
+    "zip": "cd lambda/events && yarn install && zip -r events.zip *",
+    "postzip": "mv lambda/events/events.zip functions",
+    "prebuild": "npm run clean && npm run zip",
+    "build": "echo 'ok'"
+  }
+}
