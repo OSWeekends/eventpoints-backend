@@ -1,212 +1,214 @@
 {
-  "swagger" : "2.0",
-  "info" : {
-    "description" : "API FOR EVENTPOINTS\n",
-    "version" : "0.0.1",
-    "title" : "EventPoints API",
-    "contact" : {
-      "name" : "OSWeekends",
-      "url" : "http://www.osweekends.com"
+  "swagger": "2.0",
+  "info": {
+    "description": "API FOR EVENTPOINTS\n",
+    "version": "0.0.1",
+    "title": "EventPoints API",
+    "contact": {
+      "name": "OSWeekends",
+      "url": "http://www.osweekends.com"
     }
   },
-  "basePath" : "/api/v1",
-  "schemes" : [ "http" ],
-  "paths" : {
-    "/" : {
-      "get" : {
-        "tags" : [ "Ping" ],
-        "description" : "Gets API up and runing message\n",
-        "produces" : [ "application/json" ],
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "API up and running message",
-            "schema" : {
-              "$ref" : "#/definitions/inline_response_200"
+  "basePath": "/api/v1",
+  "schemes": ["https"],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": ["Ping"],
+        "description": "Gets API up and runing message\n",
+        "produces": ["application/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "API up and running message",
+            "schema": {
+              "$ref": "#/definitions/inline_response_200"
             }
           }
         }
       }
     },
-    "/events" : {
-      "get" : {
-        "tags" : [ "Events" ],
-        "description" : "Gets all tech events for this week\n",
-        "produces" : [ "application/json" ],
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "Events propperly fetched",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/inline_response_200_1"
+    "/events": {
+      "get": {
+        "tags": ["Events"],
+        "description": "Gets all tech events for this week\n",
+        "produces": ["application/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Events propperly fetched",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/inline_response_200_1"
               }
             }
           },
-          "500" : {
-            "description" : "Internal Server Error"
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/events/{id}" : {
-      "get" : {
-        "tags" : [ "Events" ],
-        "description" : "Gets tech event details by Id\n",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "description" : "ID of event to fetch",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Event propperly fetched",
-            "schema" : {
-              "$ref" : "#/definitions/inline_response_200_1"
+    "/events/{id}": {
+      "get": {
+        "tags": ["Events"],
+        "description": "Gets tech event details by Id\n",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of event to fetch",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Event propperly fetched",
+            "schema": {
+              "$ref": "#/definitions/inline_response_200_1"
             }
           },
-          "404" : {
-            "description" : "Event not found"
+          "404": {
+            "description": "Event not found"
           },
-          "500" : {
-            "description" : "Internal Server Error"
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     }
   },
-  "definitions" : {
-    "events_price" : {
-      "properties" : {
-        "details" : {
-          "type" : "string"
+  "definitions": {
+    "events_price": {
+      "properties": {
+        "details": {
+          "type": "string"
         },
-        "isFree" : {
-          "type" : "boolean"
+        "isFree": {
+          "type": "boolean"
         },
-        "isTrusted" : {
-          "type" : "boolean"
+        "isTrusted": {
+          "type": "boolean"
         }
       },
-      "example" : {
-        "isFree" : true,
-        "details" : "details",
-        "isTrusted" : true
+      "example": {
+        "isFree": true,
+        "details": "details",
+        "isTrusted": true
       }
     },
-    "events_source" : {
-      "properties" : {
-        "event_url" : {
-          "type" : "string"
+    "events_source": {
+      "properties": {
+        "event_url": {
+          "type": "string"
         },
-        "logo" : {
-          "type" : "string"
+        "logo": {
+          "type": "string"
         },
-        "name" : {
-          "type" : "string"
+        "name": {
+          "type": "string"
         },
-        "url" : {
-          "type" : "string"
+        "url": {
+          "type": "string"
         }
       },
-      "example" : {
-        "name" : "name",
-        "logo" : "logo",
-        "event_url" : "event_url",
-        "url" : "url"
+      "example": {
+        "name": "name",
+        "logo": "logo",
+        "event_url": "event_url",
+        "url": "url"
       }
     },
-    "inline_response_200_1" : {
-      "properties" : {
-        "abstract" : {
-          "type" : "string"
+    "inline_response_200_1": {
+      "properties": {
+        "abstract": {
+          "type": "string"
         },
-        "abstract_details" : {
-          "type" : "string"
+        "abstract_details": {
+          "type": "string"
         },
-        "date" : {
-          "type" : "string"
+        "date": {
+          "type": "string"
         },
-        "location" : {
-          "$ref" : "#/definitions/events_location"
+        "location": {
+          "$ref": "#/definitions/events_location"
         },
-        "price" : {
-          "$ref" : "#/definitions/events_price"
+        "price": {
+          "$ref": "#/definitions/events_price"
         },
-        "source" : {
-          "$ref" : "#/definitions/events_source"
+        "source": {
+          "$ref": "#/definitions/events_source"
         },
-        "target_url" : {
-          "type" : "string"
+        "target_url": {
+          "type": "string"
         },
-        "title" : {
-          "type" : "string"
+        "title": {
+          "type": "string"
         },
-        "id" : {
-          "type" : "string"
+        "id": {
+          "type": "string"
         }
       },
-      "example" : {
-        "date" : "date",
-        "price" : {
-          "isFree" : true,
-          "details" : "details",
-          "isTrusted" : true
+      "example": {
+        "date": "date",
+        "price": {
+          "isFree": true,
+          "details": "details",
+          "isTrusted": true
         },
-        "target_url" : "target_url",
-        "location" : {
-          "notes" : "notes",
-          "lng" : 6.02745618307040320615897144307382404804229736328125,
-          "name" : "name",
-          "lat" : 0.80082819046101150206595775671303272247314453125
+        "target_url": "target_url",
+        "location": {
+          "notes": "notes",
+          "lng": 6.02745618307040320615897144307382404804229736328125,
+          "name": "name",
+          "lat": 0.80082819046101150206595775671303272247314453125
         },
-        "abstract" : "abstract",
-        "source" : {
-          "name" : "name",
-          "logo" : "logo",
-          "event_url" : "event_url",
-          "url" : "url"
+        "abstract": "abstract",
+        "source": {
+          "name": "name",
+          "logo": "logo",
+          "event_url": "event_url",
+          "url": "url"
         },
-        "id" : "id",
-        "abstract_details" : "abstract_details",
-        "title" : "title"
+        "id": "id",
+        "abstract_details": "abstract_details",
+        "title": "title"
       }
     },
-    "inline_response_200" : {
-      "required" : [ "message" ],
-      "properties" : {
-        "message" : {
-          "type" : "string"
+    "inline_response_200": {
+      "required": ["message"],
+      "properties": {
+        "message": {
+          "type": "string"
         }
       },
-      "example" : {
-        "message" : "message"
+      "example": {
+        "message": "message"
       }
     },
-    "events_location" : {
-      "properties" : {
-        "lat" : {
-          "type" : "number"
+    "events_location": {
+      "properties": {
+        "lat": {
+          "type": "number"
         },
-        "lng" : {
-          "type" : "number"
+        "lng": {
+          "type": "number"
         },
-        "name" : {
-          "type" : "string"
+        "name": {
+          "type": "string"
         },
-        "notes" : {
-          "type" : "string"
+        "notes": {
+          "type": "string"
         }
       },
-      "example" : {
-        "notes" : "notes",
-        "lng" : 6.02745618307040320615897144307382404804229736328125,
-        "name" : "name",
-        "lat" : 0.80082819046101150206595775671303272247314453125
+      "example": {
+        "notes": "notes",
+        "lng": 6.02745618307040320615897144307382404804229736328125,
+        "name": "name",
+        "lat": 0.80082819046101150206595775671303272247314453125
       }
     }
   }
