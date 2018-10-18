@@ -1,4 +1,5 @@
 const events = require("./constants/events.json")
+console.log(events)
 exports.handler = function(event, context, callback) {
   callback(null, {
     statusCode: 200,
