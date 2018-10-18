@@ -13,7 +13,7 @@ function findAndSendEvent(callback, id) {
     statusCode = found ? 200 : 404,
     response = found
       ? found
-      : `Not Found, try this https://eventpoints.baulen.com/api/v1/events/${
+      : `Event not found. Try this one https://eventpoints.baulen.com/api/v1/events/${
           events[0].id
         }`
   return callback(null, {
