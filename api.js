@@ -25,38 +25,34 @@ project.routes.add(pingRoute);
 project.routes.add(eventsRoute);
 project.routes.add(eventByIdRoute);
 
+//Define here the array of scrappers
+var spiders = ['meetup'];
+
 // Cron Tasks
-//  var pythonRocks = new Scheduled({
-//     id: "pythonRocks",
-//     pattern: "45 18 * * * *",
-//     task: function() {
-//         fs.readdir('./datasource/eventscraper/spiders', function (err, files) {
-//             if(err){
-//                 console.log("/datasource/eventscraper/spiders:", err);
-//             } else {
-//                 files.forEach(function (file) {
-//                     if (/.py/.test(file)) {
-//                         console.log(`---- Proceso hijo de ${file} Iniciado! ------`);
-//                         exec('cd datasource/eventscraper/spiders && scrapy crawl ' + file + '', function(error, stdout, stderr) {
-//                             console.log(`---- Proceso hijo de ${file} terminado! -----`);
-//                             if (stdout) {
-//                                 console.log('stdout: ' + stdout);
-//                             }
+ var pythonRocks = new Scheduled({
+    id: "pythonRocks",
+    pattern: "45 18 * * * *",
+    task: function() {
+                spiders.forEach(function (spider) {                    
+                        console.log(`---- Proceso hijo de ${spider} Iniciado! ------`);
+                        exec('cd datasource && scrapy crawl ' + spider + ' -o output/' + spider + '.json', function(error, stdout, stderr) {
+                            console.log(`---- Proceso hijo de ${spider} terminado! -----`);
+                            if (stdout) {
+                                console.log('stdout: ' + stdout);
+                            }
 
-//                             if (stderr) {
-//                                 console.log('stderr: ' + stderr);
-//                             }
+                            if (stderr) {
+                                console.log('stderr: ' + stderr);
+                            }
 
-//                             if (error) {
-//                                 console.log('exec error: ' + error);
-//                             }
-//                         });
-//                     }
-//                 });
-//             }
-//         });
-//     }
-// }).start();
+                            if (error) {
+                                console.log('exec error: ' + error);
+                            }
+                        });
+                    
+                });
+            }
+}).start();
 
 
 var harmonizerTask = new Scheduled({
@@ -72,6 +68,6 @@ goblinDB.on('change', function(){
 });
 
 harmonizerTask.launch();
-//pythonRocks.launch();
+pythonRocks.launch();
 
 module.exports = eventsApi;
