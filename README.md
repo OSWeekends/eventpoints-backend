@@ -30,6 +30,8 @@ Si usas Python 3.7, da un error que se puede solucionar ejecutando
 
 ##### Lanzamiento de spiders
 
+Desde ./datasource
+
 `scrapy crawl {spider_name} -o {json_path}`
 
 Siendo `spider_name` el nombre de la araña y `json_path` el JSON en el que se va a
