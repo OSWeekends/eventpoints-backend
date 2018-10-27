@@ -41,18 +41,18 @@ var spiders = ['meetup'];
                 spiders.forEach(function (spider) {                    
                     console.log(`---- Proceso hijo de ${spider} Iniciado! ------`);
                     exec('cd datasource && scrapy crawl ' + spider + ' -o output/' + spider + '.json', function(error, stdout, stderr) {
-                                    console.log(`---- Proceso hijo de ${spider} terminado! -----`);
-                                    if (stdout) {
-                                        console.log('stdout: ' + stdout);
-                                    }
+                        console.log(`---- Proceso hijo de ${spider} terminado! -----`);
+                        if (stdout) {
+                            console.log('stdout: ' + stdout);
+                        }
         
-                                    if (stderr) {
-                                        console.log('stderr: ' + stderr);
-                                    }
+                        if (stderr) {
+                            console.log('stderr: ' + stderr);
+                        }
         
-                                    if (error) {
-                                        console.log('exec error: ' + error);
-                                    }
+                        if (error) {
+                            console.log('exec error: ' + error);
+                        }
                     });     
                 });
             }
