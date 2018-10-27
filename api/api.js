@@ -35,13 +35,13 @@ var spiders = ['meetup'];
     pattern: "0 0/5 0 ? * * *",
     task: function() {
         console.log(`---- Borro ficheros json! ------`);
-        exec('cd ../scrapers/datasource/output && rm *.json', function(error, stdout, stderr) {
+        exec('cd ../scrapers/output && rm *.json', function(error, stdout, stderr) {
             if (error) {
                 console.log('Borrando error: ' + error);
             } else {
                 spiders.forEach(function (spider) {                    
                     console.log(`---- Proceso hijo de ${spider} Iniciado! ------`);
-                    exec('cd ../scrapers/datasource && scrapy crawl ' + spider + ' -o output/' + spider + '.json', function(error, stdout, stderr) {
+                    exec('cd ../scrapers/ && scrapy crawl ' + spider + ' -o ../scrapers/output/' + spider + '.json', function(error, stdout, stderr) {
                         console.log(`---- Proceso hijo de ${spider} terminado! -----`);
                         if (stdout) {
                             console.log('stdout: ' + stdout);
