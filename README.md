@@ -45,6 +45,8 @@ Ejemplo de uso
 
 ## API
 
+Documentación de la API en swagger: [https://eventpoints.baulen.com/](https://eventpoints.baulen.com/)
+
 To install dependencies: `npm install`
 
 To launch the API: `npm start`
