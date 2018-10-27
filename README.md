@@ -4,13 +4,12 @@
 
 ## Scraper
 
-Ruta: ./datasource
-
 El scraper está hecho con Scrapy, una librería de Python.
 
 #### Instalación
 
 Versión recomendada de Python: 3.6
+Versión recomendada de Pip: 18.1
 
 Creamos el venv
 
@@ -29,8 +28,6 @@ Si usas Python 3.7, da un error que se puede solucionar ejecutando
 [Scrapy Docs](https://doc.scrapy.org/en/latest/)
 
 ##### Lanzamiento de spiders
-
-Desde ./datasource
 
 `scrapy crawl {spider_name} -o {json_path}`
 
