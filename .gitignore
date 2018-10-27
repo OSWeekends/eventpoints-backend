@@ -58,6 +58,7 @@ goblin_db.json
 # Python
 venv
 __pycache__
+datasource/output
 
 # Editors
 .vscode
