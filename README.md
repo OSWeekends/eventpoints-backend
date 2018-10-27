@@ -45,10 +45,12 @@ Ejemplo de uso
 
 ## API
 
-To install dependencies: `npm install`
+El api está en el directorio `api`
 
-To launch the API: `npm start`
-Once launched --> http://localhost:3000/api/v1/events
+Para instalar las dependencias del API nos metemos en su directorio y ejecutamos: `npm install`
+
+Para ejecutar el API: `npm start`
+Una vez lanzado la vemos en --> http://localhost:3000/api/v1/events
 
 `#eventpoints_new` en Slack
 
