@@ -32,7 +32,6 @@ var spiders = ['meetup'];
     id: "pythonRocks",
     pattern: "0 0/5 0 ? * * *",
     task: function() {
-
         console.log(`---- Borro ficheros json! ------`);
         exec('cd datasource/output && rm *.json', function(error, stdout, stderr) {
             if (error) {

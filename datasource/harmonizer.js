@@ -13,11 +13,11 @@ module.exports = function(goblinDB) {
                 if (/.json/.test(file)) {
 
                     //Load refreshed file
-                    var currentArray = JSON.parse(fs.readFileSync(`./datasource/output/${file}`,'utf8'));                    
+                    var currentArray = JSON.parse(fs.readFileSync(`./datasource/output/${file}`,'utf8'));
 
                     if (currentArray.length > 0) {
-                        arrayEventos = _.concat(arrayEventos, currentArray);                        
-                    } 
+                        arrayEventos = _.concat(arrayEventos, currentArray);
+                    }
                 }
             });
     
