@@ -1,4 +1,4 @@
-var _ = require("lodash"),
+var _ = require('lodash'),
     uuidV4 = require('uuid/v4'),
     fs = require('fs');
 
@@ -6,12 +6,15 @@ module.exports = function(goblinDB) {
     var arrayEventos = [];
     fs.readdir('./datasource/output', function (err, files) {
         if(err){
-            console.log("ERROR reading ./output:", err);
+            console.log("ERROR reading ./datasource/output:", err);
         } else {
+
             files.forEach(function(file){
                 if (/.json/.test(file)) {
-                    var currentArray = require(`./output/${file}`);
-    
+
+                    //Load refreshed file
+                    var currentArray = JSON.parse(fs.readFileSync(`./datasource/output/${file}`,'utf8'));
+
                     if (currentArray.length > 0) {
                         arrayEventos = _.concat(arrayEventos, currentArray);
                     }
