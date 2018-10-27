@@ -12,9 +12,8 @@ var eventsApi = project.services.get('http').configure({
 
 eventsApi.start();
 
-var data = require('./test_data.json');
 var goblinDB = GDB();
-goblinDB.set({events: data});
+var data = goblinDB.get("events");
 
 // Define Rutes
 var pingRoute = require('./routes/index');
@@ -26,37 +25,33 @@ project.routes.add(pingRoute);
 project.routes.add(eventsRoute);
 project.routes.add(eventByIdRoute);
 
+//Define here the array of scrappers
+var spiders = ['meetup'];
+
 // Cron Tasks
-var pythonRocks = new Scheduled({
+ var pythonRocks = new Scheduled({
     id: "pythonRocks",
     pattern: "45 18 * * * *",
     task: function() {
-        fs.readdir('./datasource/', function (err, files) {
-            if(err){
-                console.log("ERROR reading ./datasource/:", err);
-            } else {
-                files.forEach(function (file) {
-                    if (/.py/.test(file)) {
-                        console.log(`---- Proceso hijo de ${file} Iniciado! ------`);
-                        exec('cd datasource && python3 ' + file, function(error, stdout, stderr) {
-                            console.log(`---- Proceso hijo de ${file} terminado! -----`);
+                spiders.forEach(function (spider) {
+                        console.log(`---- Proceso hijo de ${spider} Iniciado! ------`);
+                        exec('cd datasource && scrapy crawl ' + spider + ' -o output/' + spider + '.json', function(error, stdout, stderr) {
+                            console.log(`---- Proceso hijo de ${spider} terminado! -----`);
                             if (stdout) {
                                 console.log('stdout: ' + stdout);
                             }
-    
+
                             if (stderr) {
                                 console.log('stderr: ' + stderr);
                             }
-    
+
                             if (error) {
                                 console.log('exec error: ' + error);
                             }
                         });
-                    }
+
                 });
             }
-        });
-    }
 }).start();
 
 
