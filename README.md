@@ -41,7 +41,7 @@ Ejemplo de uso
 
 `scrapy crawl meetup -o output/meetup.json`
 
-## API + Harmonizer
+## API
 
 To install dependencies: `npm install`
 
