@@ -18,11 +18,13 @@ var data = goblinDB.get("events");
 var pingRoute = require('./routes/index');
 var eventsRoute = require('./routes/events')(goblinDB);
 var eventByIdRoute = require('./routes/eventById')(goblinDB);
+var sourcesRoute = require('./routes/sources')();
 
 // Adding routes objects to the project
 project.routes.add(pingRoute);
 project.routes.add(eventsRoute);
 project.routes.add(eventByIdRoute);
+project.routes.add(sourcesRoute);
 
 //Define here the array of scrappers
 var spiders = ['meetup'];
