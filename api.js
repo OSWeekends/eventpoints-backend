@@ -1,7 +1,6 @@
 var project = require('pillars'),
     GDB = require('goblindb'),
     exec = require('child_process').exec,
-    fs = require('fs'),
     Scheduled = require('scheduled'),
     harmonizer = require('./datasource/harmonizer.js');
     
@@ -31,33 +30,40 @@ var spiders = ['meetup'];
 // Cron Tasks
  var pythonRocks = new Scheduled({
     id: "pythonRocks",
-    pattern: "45 18 * * * *",
+    pattern: "0 0/5 0 ? * * *",
     task: function() {
-                spiders.forEach(function (spider) {
-                        console.log(`---- Proceso hijo de ${spider} Iniciado! ------`);
-                        exec('cd datasource && scrapy crawl ' + spider + ' -o output/' + spider + '.json', function(error, stdout, stderr) {
-                            console.log(`---- Proceso hijo de ${spider} terminado! -----`);
-                            if (stdout) {
-                                console.log('stdout: ' + stdout);
-                            }
-
-                            if (stderr) {
-                                console.log('stderr: ' + stderr);
-                            }
-
-                            if (error) {
-                                console.log('exec error: ' + error);
-                            }
-                        });
-
+        console.log(`---- Borro ficheros json! ------`);
+        exec('cd datasource/output && rm *.json', function(error, stdout, stderr) {
+            if (error) {
+                console.log('Borrando error: ' + error);
+            } else {
+                spiders.forEach(function (spider) {                    
+                    console.log(`---- Proceso hijo de ${spider} Iniciado! ------`);
+                    exec('cd datasource && scrapy crawl ' + spider + ' -o output/' + spider + '.json', function(error, stdout, stderr) {
+                        console.log(`---- Proceso hijo de ${spider} terminado! -----`);
+                        if (stdout) {
+                            console.log('stdout: ' + stdout);
+                        }
+        
+                        if (stderr) {
+                            console.log('stderr: ' + stderr);
+                        }
+        
+                        if (error) {
+                            console.log('exec error: ' + error);
+                        }
+                    });     
                 });
             }
+
+        });        
+    }
 }).start();
 
 
 var harmonizerTask = new Scheduled({
     id: "harmonizerTask",
-    pattern: "15 19 * * * *",
+    pattern: "0 1/5 0 ? * * *",
     task: function() {
         harmonizer(goblinDB);
     }

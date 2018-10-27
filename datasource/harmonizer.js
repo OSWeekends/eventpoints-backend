@@ -25,7 +25,7 @@ module.exports = function(goblinDB) {
                 Filtering duplicate elements
                 @see https://lodash.com/docs/4.17.4#uniqBy
             */
-            arrayEventos = _.uniqBy(arrayEventos, "target_url");
+            //arrayEventos = _.uniqBy(arrayEventos, "target_url");
     
             // adding UUIDs
             arrayEventos.forEach(function(event) {
