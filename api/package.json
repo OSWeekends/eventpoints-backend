@@ -14,7 +14,7 @@
   "author": "OSWeekends",
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
-    "goblindb": "0.0.8",
+    "@goblindb/goblindb": "^0.1.1",
     "lodash": "^4.17.11",
     "pillars": "^0.7.1",
     "scheduled": "*",
