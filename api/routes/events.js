@@ -5,23 +5,26 @@ module.exports = function(data) {
         path: 'api/v1/events',
         cors: true
     }, function(gw) {
-        const from = gw.req.query.from;
-        const to = gw.req.query.to;
+        
+        const from = new Date(gw.req.query.from);
+        const to = new Date(gw.req.query.to);
 
         var filteredData = data;
 
-        if(from) {
-            console.log("From: " + from);
+        if(!isNaN(from.getTime())) {
             filteredData = filteredData.filter(event => {
-                return new Date(event.date) >= new Date(from);                
+                return new Date(event.date) >= from;                
             });
+        } else {
+            console.log("La fecha inicio es incorrecta");
         }
         
-        if(to) {
-            console.log("To: " + to);
+        if(!isNaN(to.getTime())) {
             filteredData = filteredData.filter(event => {
-                return new Date(event.date) <= new Date(to);                
+                return new Date(event.date) <= to;                
             });
+        } else {
+            console.log("La fecha fin es incorrecta");
         }
         
         gw.json(filteredData, {
