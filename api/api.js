@@ -9,6 +9,8 @@ const eventsApi = project.services.get('http').configure({
     port: process.env.PORT || 3000
 })
 
+project.config.favicon = './favicon.ico';
+
 eventsApi.start();
 
 const dbConfig = {
