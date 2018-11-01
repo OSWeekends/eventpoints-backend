@@ -37,12 +37,14 @@ const goblinDB = GDB(dbConfig, err => {
     const eventsRoute = require('./routes/events')(data);
     const eventByIdRoute = require('./routes/eventById')(data);
     const sourcesRoute = require('./routes/sources')();
+    const specRoute = require('./routes/spec')();
 
     // Adding routes objects to the project
     project.routes.add(pingRoute);
     project.routes.add(eventsRoute);
     project.routes.add(eventByIdRoute);
     project.routes.add(sourcesRoute);
+    project.routes.add(specRoute);
 
     //Define here the array of scrappers
     const spiders = ['meetup'];
