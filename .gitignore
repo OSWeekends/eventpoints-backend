@@ -54,11 +54,15 @@ package-lock.json
 # Goblin DB
 goblin_db.goblin
 goblin_db.json
+api/event_points.json
+api/event_points.goblin
 
-# Python
+# Scrapers
 venv
 __pycache__
 datasource/output
+scrapers/output
+scrapers/venv
 
 # Editors
 .vscode
