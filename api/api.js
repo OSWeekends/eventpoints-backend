@@ -56,7 +56,7 @@ const goblinDB = GDB(dbConfig, err => {
     // Cron Tasks
     const pythonRocks = new Scheduled({
         id: "pythonRocks",
-        pattern: "0 0/5 0 ? * * *",
+        pattern: "45 18 * * * *",
         task: function() {
             console.log(`---- Borro ficheros json! ------`);
             exec('cd ../scrapers/output && rm *.json', function(error, stdout, stderr) {
@@ -88,7 +88,7 @@ const goblinDB = GDB(dbConfig, err => {
 
     const harmonizerTask = new Scheduled({
         id: "harmonizerTask",
-        pattern: "0 * 0 ? * * *",
+        pattern: "15 19 * * * *",
         task: function() {
             harmonizer(goblinDB, debugMode);
         }
@@ -99,8 +99,8 @@ const goblinDB = GDB(dbConfig, err => {
         data = goblinDB.get("events");
     });
 
-    //harmonizerTask.launch();
-    //pythonRocks.launch();
+    harmonizerTask.launch();
+    pythonRocks.launch();
 
 });
 

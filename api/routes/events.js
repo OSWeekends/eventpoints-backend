@@ -11,20 +11,26 @@ module.exports = function(data) {
 
         var filteredData = data;
 
-        if(!isNaN(from.getTime())) {
-            filteredData = filteredData.filter(event => {
-                return new Date(event.date) >= from;                
-            });
-        } else {
-            console.log("La fecha inicio es incorrecta");
+        if(gw.req.query.from) {
+            if(!isNaN(from.getTime())) {
+                filteredData = filteredData.filter(event => {
+                    return new Date(event.date) >= from;                
+                });
+            } else {
+                gw.statusCode = 400;
+                gw.json({"msg": "La fecha inicio es incorrecta"});
+            }
         }
         
-        if(!isNaN(to.getTime())) {
-            filteredData = filteredData.filter(event => {
-                return new Date(event.date) <= to;                
-            });
-        } else {
-            console.log("La fecha fin es incorrecta");
+        if(gw.req.query.to) {
+            if(!isNaN(to.getTime())) {
+                filteredData = filteredData.filter(event => {
+                    return new Date(event.date) <= to;                
+                });
+            } else {
+                gw.statusCode = 400;
+                gw.json({"msg": "La fecha fin es incorrecta"});
+            }
         }
         
         gw.json(filteredData, {
