@@ -3,6 +3,8 @@ const project = require('pillars'),
     exec = require('child_process').exec,
     Scheduled = require('scheduled'),
     harmonizer = require('./harmonizer.js');
+
+const testData = require('./test_data.json');
     
 // Starting the project
 const eventsApi = project.services.get('http').configure({
@@ -30,7 +32,7 @@ const goblinDB = GDB(dbConfig, err => {
     var data = goblinDB.get("events");
 
     if(!data) {
-        data = [];
+        data = testData;
         goblinDB.set(data, "events");
     }
 
@@ -97,7 +99,7 @@ const goblinDB = GDB(dbConfig, err => {
         data = goblinDB.get("events");
     });
 
-    harmonizerTask.launch();
+    //harmonizerTask.launch();
     //pythonRocks.launch();
 
 });
