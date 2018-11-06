@@ -31,9 +31,22 @@
       "/events": {
         "get": {
           "tags": ["Events"],
-          "description": "Gets all tech events for this week\n",
+          "description": "Gets all tech events\n",
           "produces": ["application/json"],
-          "parameters": [],
+          "parameters": [
+            {
+            "in": "query",
+            "name": "from",
+            "type": "string",
+            "description": "Fecha inicio  para filtrar eventos"
+            },
+            {
+              "in": "query",
+              "name": "to",
+              "type": "string",
+              "description": "Fecha fin  para filtrar eventos"
+              }
+          ],
           "responses": {
             "200": {
               "description": "Events propperly fetched",
