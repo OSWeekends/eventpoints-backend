@@ -46,6 +46,8 @@ El api está en el directorio `api`
 
 Para instalar las dependencias del API nos metemos en su directorio y ejecutamos: `npm install`
 
+Documentación de la API en swagger: http://localhost:3000/api/v1/spec
+
 Para ejecutar el API: `npm start`
 Una vez lanzado la vemos en --> http://localhost:3000/api/v1/events
 
