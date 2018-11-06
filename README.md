@@ -4,13 +4,12 @@
 
 ## Scraper
 
-Ruta: ./datasource
-
 El scraper está hecho con Scrapy, una librería de Python.
 
 #### Instalación
 
 Versión recomendada de Python: 3.6
+Versión recomendada de Pip: 18.1
 
 Creamos el venv
 
@@ -30,8 +29,6 @@ Si usas Python 3.7, da un error que se puede solucionar ejecutando
 
 ##### Lanzamiento de spiders
 
-Desde ./datasource
-
 `scrapy crawl {spider_name} -o {json_path}`
 
 Siendo `spider_name` el nombre de la araña y `json_path` el JSON en el que se va a
@@ -45,10 +42,12 @@ Ejemplo de uso
 
 ## API
 
-To install dependencies: `npm install`
+El api está en el directorio `api`
 
-To launch the API: `npm start`
-Once launched --> http://localhost:3000/api/v1/events
+Para instalar las dependencias del API nos metemos en su directorio y ejecutamos: `npm install`
+
+Para ejecutar el API: `npm start`
+Una vez lanzado la vemos en --> http://localhost:3000/api/v1/events
 
 `#eventpoints_new` en Slack
 

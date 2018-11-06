@@ -1,6 +1,6 @@
 var _ = require('lodash');
 
-module.exports = function(goblinDB) {
+module.exports = function(data) {
  
     var eventsRouter = new Route({
         id: 'staticRoute',
@@ -8,7 +8,7 @@ module.exports = function(goblinDB) {
         cors: true
     }, function(gw) {
 
-        var item = _.find(goblinDB.get('events'), {id: gw.params.path});
+        var item = _.find(data, {id: gw.params.path});
 
         if(!item) {
             gw.statusCode = 404;
