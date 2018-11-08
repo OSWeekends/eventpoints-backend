@@ -15,6 +15,7 @@ class MeetupSpider(CrawlSpider):
             event = Event()
             event['source'] = {}
             event['source']['event_url'] = response.request.url
+            #TODO: Seguramente toda esta info debería de añadirla la API, aquí podríamos simplemente indicar el ID de source.
             event['source']['name'] = 'Meetup'
             event['source']['logo'] = 'https://secure.meetupstatic.com/s/img/5455565085016210254/logo/svg/logo--script.svg'
             event['source']['url'] = 'https://www.meetup.com'
@@ -32,12 +33,13 @@ class MeetupSpider(CrawlSpider):
 
         details = response.xpath('//div[contains(@class, "event-description")]/p').extract_first()
         event['host'] = response.xpath('//div[contains(@class, "event-info-hosts-text")]/a/span/span/span/text()').extract_first()
-        event['short_details'] = textwrap.shorten(details, width=50, placeholder="...")
+        event['short_details'] = textwrap.shorten(details, width=150, placeholder="...")
         event['details'] = details
 
         event['price'] = {}
         event['price']['is_free'] = True
 
+        #TODO: Podemos añadir la hora inicio y la hora fin
         event['date'] = {}
         event['date']['datetime'] = response.xpath('//time/@datetime').extract_first()
 
@@ -45,6 +47,7 @@ class MeetupSpider(CrawlSpider):
         event['location'] = {}
         event['location']['name'] = location[0]
         event['location']['address'] = location[1]
+        #TODO: Desharcodear la latitud y longitud.
         event['location']['lat'] = '40.392303'
         event['location']['lng'] = '-3.697430'
 
