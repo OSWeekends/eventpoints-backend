@@ -63,6 +63,7 @@ __pycache__
 datasource/output
 scrapers/output/*.json
 scrapers/venv
+*.pyc
 
 # Editors
 .vscode
