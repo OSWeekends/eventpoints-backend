@@ -61,7 +61,7 @@ api/event_points.goblin
 venv
 __pycache__
 datasource/output
-scrapers/output
+scrapers/output/*.json
 scrapers/venv
 
 # Editors
