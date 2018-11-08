@@ -4,8 +4,6 @@ const project = require('pillars'),
     Scheduled = require('scheduled'),
     harmonizer = require('./harmonizer.js');
 
-const testData = require('./test_data.json');
-    
 // Starting the project
 const eventsApi = project.services.get('http').configure({
     port: process.env.PORT || 3000
@@ -21,7 +19,6 @@ const dbConfig = {
 
 const debugMode = false;
 
-
 const goblinDB = GDB(dbConfig, err => {
 
     if(err) {
@@ -30,11 +27,16 @@ const goblinDB = GDB(dbConfig, err => {
     }
 
     var data = goblinDB.get("events");
-
+    
     if(!data) {
-        data = testData;
+        if(debugMode) {
+            data = require('./test_data.json');
+        } else {
+            data = [];
+        }
         goblinDB.set(data, "events");
     }
+    
 
     // Define Rutes
     const pingRoute = require('./routes/index');
@@ -100,7 +102,7 @@ const goblinDB = GDB(dbConfig, err => {
     });
 
     harmonizerTask.launch();
-    pythonRocks.launch();
+    //pythonRocks.launch();
 
 });
 
