@@ -40,7 +40,7 @@ jspm_packages
 ideas
 
 # Config Setup
-config.js
+#config.js
 
 #polymer Components
 app/bower_components
@@ -60,9 +60,10 @@ api/event_points.goblin
 # Scrapers
 venv
 __pycache__
-datasource/output
-scrapers/output
+scrapers/output/*
 scrapers/venv
+scrapers/eventscraper/*.pyc
+scrapers/eventscraper/spiders/*.pyc
 
 # Editors
 .vscode

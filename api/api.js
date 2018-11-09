@@ -2,38 +2,32 @@ const project = require('pillars'),
     GDB = require('@goblindb/goblindb'),
     exec = require('child_process').exec,
     Scheduled = require('scheduled'),
-    harmonizer = require('./harmonizer.js');
+    harmonizer = require('./harmonizer.js'),
+    config = require('./config');
 
 // Starting the project
 const eventsApi = project.services.get('http').configure({
-    port: process.env.PORT || 3000
+    port: process.env.PORT || config.port
 })
 
 project.config.favicon = './favicon.ico';
 
 eventsApi.start();
 
-const dbConfig = {
-    fileName: 'event_points'
-};
-
-const debugMode = false;
-
-const goblinDB = GDB(dbConfig, err => {
+const goblinDB = GDB(config.dbConfig, err => {
 
     if(err) {
         console.log("Error launching DB - will exit");
         exit();
     }
 
-    var data = goblinDB.get("events");
-    
-    if(!data) {
-        if(debugMode) {
-            data = require('./test_data.json');
-        } else {
-            data = [];
-        }
+    var data;
+
+    if(config.mockupData) {
+        data = require('./test_data.json');
+    } else {
+        data = goblinDB.get("events");
+        if(!data) data = [];
         goblinDB.set(data, "events");
     }
     
@@ -92,7 +86,7 @@ const goblinDB = GDB(dbConfig, err => {
         id: "harmonizerTask",
         pattern: "15 19 * * * *",
         task: function() {
-            harmonizer(goblinDB, debugMode);
+            harmonizer(goblinDB, config.debugMode);
         }
     }).start();
 
