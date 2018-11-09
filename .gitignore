@@ -60,10 +60,10 @@ api/event_points.goblin
 # Scrapers
 venv
 __pycache__
-scrapers/output/*
+datasource/output
+scrapers/output/*.json
 scrapers/venv
-scrapers/eventscraper/*.pyc
-scrapers/eventscraper/spiders/*.pyc
+*.pyc
 
 # Editors
 .vscode
