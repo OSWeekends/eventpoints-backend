@@ -56,13 +56,15 @@ const goblinDB = GDB(config.dbConfig, err => {
         task: function() {
             console.log(`---- Borro ficheros json! ------`);
             exec('cd ../scrapers/output && rm *.json', function(error, stdout, stderr) {
-                if (error) {
+
+                if (error && config.debugMode) {
                     console.log('Borrando error: ' + error);
-                } else {
-                    spiders.forEach(function (spider) {                    
+                } 
+
+                spiders.forEach(function (spider) {                    
                         console.log(`---- Proceso hijo de ${spider} Iniciado! ------`);
                         exec('cd ../scrapers/ && scrapy crawl ' + spider + ' -o ../scrapers/output/' + spider + '.json', function(error, stdout, stderr) {
-                            console.log(`---- Proceso hijo de ${spider} terminado! -----`);
+                            
                             if (stdout) {
                                 console.log('stdout: ' + stdout);
                             }
@@ -74,9 +76,10 @@ const goblinDB = GDB(config.dbConfig, err => {
                             if (error) {
                                 console.log('exec error: ' + error);
                             }
+                            console.log(`---- Proceso hijo de ${spider} terminado! -----`);
                         });     
-                    });
-                }
+                });
+                
 
             });        
         }
@@ -96,7 +99,7 @@ const goblinDB = GDB(config.dbConfig, err => {
     });
 
     harmonizerTask.launch();
-    //pythonRocks.launch();
+    pythonRocks.launch();
 
 });
 

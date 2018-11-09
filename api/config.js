@@ -4,5 +4,5 @@ module.exports = {
         fileName: 'event_points'
     },
     port: 3000,
-    mockupData: true
+    mockupData: false
 }
