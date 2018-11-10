@@ -3,6 +3,7 @@ const project = require('pillars'),
     exec = require('child_process').exec,
     Scheduled = require('scheduled'),
     harmonizer = require('./harmonizer.js'),
+    sources = require('./sources');
     config = require('./config');
 
 // Starting the project
@@ -27,8 +28,9 @@ const goblinDB = GDB(config.dbConfig, err => {
         data = require('./test_data.json');
     } else {
         data = goblinDB.get("events");
-        if(!data) data = [];
-        goblinDB.set(data, "events");
+        if(!data) {
+            data = [];
+        }
     }
     
 
@@ -36,7 +38,7 @@ const goblinDB = GDB(config.dbConfig, err => {
     const pingRoute = require('./routes/index');
     const eventsRoute = require('./routes/events')(data);
     const eventByIdRoute = require('./routes/eventById')(data);
-    const sourcesRoute = require('./routes/sources')();
+    const sourcesRoute = require('./routes/sources')(sources);
     const specRoute = require('./routes/spec')();
 
     // Adding routes objects to the project
@@ -89,17 +91,20 @@ const goblinDB = GDB(config.dbConfig, err => {
         id: "harmonizerTask",
         pattern: "15 19 * * * *",
         task: function() {
-            harmonizer(goblinDB, config.debugMode);
+            harmonizer(goblinDB, sources, config.debugMode);
         }
     }).start();
 
     // Events supported
     goblinDB.on('change', function(changes){
+        if(config.debugMode) {
+            console.log("Ha habido cambios en la BD");
+        }
         data = goblinDB.get("events");
     });
 
     harmonizerTask.launch();
-    pythonRocks.launch();
+    //pythonRocks.launch();
 
 });
 

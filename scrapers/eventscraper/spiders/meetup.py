@@ -14,12 +14,9 @@ class MeetupSpider(CrawlSpider):
         tech_meetups = response.xpath('//div[@class="chunk"]')
         for tech_meetup in tech_meetups:
             event = Event()
-            event['source'] = {}
-            #TODO: Seguramente toda esta info debería de añadirla la API, aquí podríamos simplemente indicar el ID de source.
-            event['source']['name'] = 'Meetup'
-            event['source']['logo'] = 'https://secure.meetupstatic.com/s/img/5455565085016210254/logo/svg/logo--script.svg'
-            event['source']['url'] = 'https://www.meetup.com'
-
+            # TODO: El resto del objeto lo inserta el API.
+            event['source'] = 'meetup' 
+            
             event['title'] = tech_meetup.xpath('a/span/text()').extract_first()
             event['group'] = tech_meetup.xpath('div/a/span/text()').extract_first()
 
@@ -31,21 +28,20 @@ class MeetupSpider(CrawlSpider):
     def parse_details(response):
         event = response.meta['event']
 
-        event['source']['event_url'] = response.request.url
+        event['target_url'] = response.request.url
 
         details = response.xpath('//div[contains(@class, "event-description")]/p').extract_first()
         event['host'] = response.xpath('//div[contains(@class, "event-info-hosts-text")]/a/span/span/span/text()').extract_first()
-        event['short_details'] = textwrap.shorten(details, width=150, placeholder="...")
-        event['details'] = details
+        event['abstract'] = textwrap.shorten(details, width=150, placeholder="...")
+        event['abstract_details'] = details
 
         event['price'] = {}
         event['price']['details'] = '0'
-        event['price']['is_trusted'] = True
-        event['price']['is_free'] = True
+        event['price']['isTrusted'] = True
+        event['price']['isFree'] = True
 
-        #TODO: Podemos añadir la hora inicio y la hora fin
-        event['date'] = {}
-        event['date']['datetime'] = response.xpath('//time/@datetime').extract_first()
+        #TODO: Podemos anyadir la hora inicio y la hora fin
+        event['datetime'] = response.xpath('//time/@datetime').extract_first()
 
         location = response.xpath('//address/p/text()').extract()
         event['location'] = {}

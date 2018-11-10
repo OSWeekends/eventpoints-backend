@@ -1,8 +1,9 @@
 const _ = require('lodash'),
     uuidV4 = require('uuid/v4'),
-    fs = require('fs');
+    fs = require('fs'),
+    moment = require('moment');
 
-module.exports = function(goblinDB, debugMode) {
+module.exports = function(goblinDB, sources, debugMode) {
     
     if(debugMode) {
         console.log('Ejecuto el harmonizer');
@@ -40,8 +41,14 @@ module.exports = function(goblinDB, debugMode) {
                 }
             });
     
-            // adding UUIDs
+            // adding rest of fields
             newEventos.forEach(function(event) {
+                const eventDateTime =  Number(event.datetime);
+                const fullSource = sources.find(x => x.id === event.source);
+                event.source = fullSource;
+                event.datetime = eventDateTime;
+                event.date = moment(eventDateTime).format("DD-MM-YYYY");
+                event.time = moment(eventDateTime).format("HH:mm:ss");
                 event.id = uuidV4();
             });
 

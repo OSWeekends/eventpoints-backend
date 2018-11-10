@@ -56,6 +56,7 @@ goblin_db.goblin
 goblin_db.json
 api/event_points.json
 api/event_points.goblin
+api/old_data.json
 
 # Scrapers
 venv
