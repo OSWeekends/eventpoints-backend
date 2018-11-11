@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 module.exports = function(data) {
  
     var eventsRouter = new Route({
@@ -6,15 +8,15 @@ module.exports = function(data) {
         cors: true
     }, function(gw) {
         
-        const from = new Date(gw.req.query.from);
-        const to = new Date(gw.req.query.to);
+        const from = moment(gw.req.query.from);
+        const to = moment(gw.req.query.to);
 
         var filteredData = data;
 
         if(gw.req.query.from) {
-            if(!isNaN(from.getTime())) {
+            if(from.isValid()) {
                 filteredData = filteredData.filter(event => {
-                    return new Date(event.date) >= from;                
+                    return moment(event.datetime).isAfter(from);                
                 });
             } else {
                 gw.statusCode = 400;
@@ -23,9 +25,9 @@ module.exports = function(data) {
         }
         
         if(gw.req.query.to) {
-            if(!isNaN(to.getTime())) {
+            if(to.isValid()) {
                 filteredData = filteredData.filter(event => {
-                    return new Date(event.date) <= to;                
+                    return moment(event.datetime).isBefore(to);                   
                 });
             } else {
                 gw.statusCode = 400;

@@ -32,7 +32,6 @@ const goblinDB = GDB(config.dbConfig, err => {
             data = [];
         }
     }
-    
 
     // Define Rutes
     const pingRoute = require('./routes/index');
@@ -49,7 +48,7 @@ const goblinDB = GDB(config.dbConfig, err => {
     project.routes.add(specRoute);
 
     //Define here the array of scrappers
-    const spiders = ['meetup'];
+    const spiders = sources.map(s => s.id);
 
     // Cron Tasks
     const pythonRocks = new Scheduled({
