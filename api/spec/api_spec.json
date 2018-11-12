@@ -100,22 +100,22 @@
           "details": {
             "type": "string"
           },
-          "isFree": {
+          "is_free": {
             "type": "boolean"
           },
-          "isTrusted": {
+          "is_trusted": {
             "type": "boolean"
           }
         },
         "example": {
-          "isFree": true,
+          "is_free": true,
           "details": "details",
-          "isTrusted": true
+          "is_trusted": true
         }
       },
       "events_source": {
         "properties": {
-          "event_url": {
+          "id": {
             "type": "string"
           },
           "logo": {
@@ -146,6 +146,12 @@
           "date": {
             "type": "string"
           },
+          "time": {
+            "type": "string"
+          },
+          "datetime": {
+            "type": "number"
+          },
           "location": {
             "$ref": "#/definitions/events_location"
           },
@@ -166,24 +172,27 @@
           }
         },
         "example": {
-          "date": "date",
+          "date": "10/11/2018",
+          "time": "19:00",
+          "datetime": 1542304800000,
           "price": {
-            "isFree": true,
+            "is_free": true,
             "details": "details",
-            "isTrusted": true
+            "is_trusted": true
           },
           "target_url": "target_url",
           "location": {
-            "notes": "notes",
-            "lng": 6.02745618307040320615897144307382404804229736328125,
+            "address": "notes",            
             "name": "name",
-            "lat": 0.80082819046101150206595775671303272247314453125
+            "query": "40.444145,-3.667261",
+            "lat": "40.444145",
+            "lng": "-3.667261"
           },
           "abstract": "abstract",
           "source": {
             "name": "name",
             "logo": "logo",
-            "event_url": "event_url",
+            "id": "meetup",            
             "url": "url"
           },
           "id": "id",
@@ -205,23 +214,27 @@
       "events_location": {
         "properties": {
           "lat": {
-            "type": "number"
+            "type": "string"
           },
           "lng": {
-            "type": "number"
+            "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "notes": {
+          "address": {
+            "type": "string"
+          },
+          "query": {
             "type": "string"
           }
         },
         "example": {
-          "notes": "notes",
-          "lng": 6.02745618307040320615897144307382404804229736328125,
-          "name": "name",
-          "lat": 0.80082819046101150206595775671303272247314453125
+          "name": "IBM Client Center Madrid",
+            "address": "Calle Corazón de María, 44 (esquina con Santa Hortensia)",
+            "query": "40.444145,-3.667261",
+            "lat": "40.444145",
+            "lng": "-3.667261"
         }
       }
     }
