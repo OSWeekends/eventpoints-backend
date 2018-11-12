@@ -37,8 +37,8 @@ class MeetupSpider(CrawlSpider):
 
         event['price'] = {}
         event['price']['details'] = '0'
-        event['price']['isTrusted'] = True
-        event['price']['isFree'] = True
+        event['price']['is_trusted'] = True
+        event['price']['is_free'] = True
 
         #TODO: Podemos anyadir la hora inicio y la hora fin
         event['datetime'] = response.xpath('//time/@datetime').extract_first()
