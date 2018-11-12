@@ -33,12 +33,14 @@ const goblinDB = GDB(config.dbConfig, err => {
         }
     }
 
+    goblinDB.set(data, "events");
+
     // Define Rutes
-    const pingRoute = require('./routes/index');
-    const eventsRoute = require('./routes/events')(data);
-    const eventByIdRoute = require('./routes/eventById')(data);
-    const sourcesRoute = require('./routes/sources')(sources);
-    const specRoute = require('./routes/spec')();
+    var pingRoute = require('./routes/index');
+    var eventsRoute = require('./routes/events')(data);
+    var eventByIdRoute = require('./routes/eventById')(data);
+    var sourcesRoute = require('./routes/sources')(sources);
+    var specRoute = require('./routes/spec')();
 
     // Adding routes objects to the project
     project.routes.add(pingRoute);
