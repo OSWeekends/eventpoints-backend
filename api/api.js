@@ -37,8 +37,8 @@ const goblinDB = GDB(config.dbConfig, err => {
 
     // Define Rutes
     var pingRoute = require('./routes/index');
-    var eventsRoute = require('./routes/events')(data);
-    var eventByIdRoute = require('./routes/eventById')(data);
+    var eventsRoute = require('./routes/events')(goblinDB);
+    var eventByIdRoute = require('./routes/eventById')(goblinDB);
     var sourcesRoute = require('./routes/sources')(sources);
     var specRoute = require('./routes/spec')();
 
@@ -55,7 +55,7 @@ const goblinDB = GDB(config.dbConfig, err => {
     // Cron Tasks
     const pythonRocks = new Scheduled({
         id: "pythonRocks",
-        pattern: "45 18 * * * *",
+        pattern: "*/45 * * * *",
         task: function() {
             console.log(`---- Borro ficheros json! ------`);
             exec('cd ../scrapers/output && rm *.json', function(error, stdout, stderr) {
@@ -90,7 +90,7 @@ const goblinDB = GDB(config.dbConfig, err => {
 
     const harmonizerTask = new Scheduled({
         id: "harmonizerTask",
-        pattern: "15 19 * * * *",
+        pattern: "*/55 * * * *",
         task: function() {
             harmonizer(goblinDB, sources, config.debugMode);
         }
@@ -101,11 +101,11 @@ const goblinDB = GDB(config.dbConfig, err => {
         if(config.debugMode) {
             console.log("Ha habido cambios en la BD");
         }
-        data = goblinDB.get("events");
+        //data = goblinDB.get("events");
     });
 
     harmonizerTask.launch();
-    //pythonRocks.launch();
+    pythonRocks.launch();
 
 });
 

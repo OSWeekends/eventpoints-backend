@@ -1,9 +1,9 @@
 const moment = require('moment');
 
-module.exports = function(data) {
+module.exports = function(goblinDB) {
  
     var eventsRouter = new Route({
-        id: 'staticRoute',
+        id: 'events',
         path: 'api/v1/events',
         cors: true
     }, function(gw) {
@@ -11,7 +11,7 @@ module.exports = function(data) {
         const from = moment(gw.req.query.from);
         const to = moment(gw.req.query.to);
 
-        var filteredData = data;
+        var filteredData = goblinDB.get("events");
 
         if(gw.req.query.from) {
             if(from.isValid()) {
