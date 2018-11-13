@@ -15,6 +15,10 @@ Creamos el venv
 
 `python3 -m venv ./venv`
 
+Activamos el venv
+
+`source venv/bin/activate`
+
 Instalamos las dependencias
 
 `pip3 install -r requirements.txt`
