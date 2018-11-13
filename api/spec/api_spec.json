@@ -15,7 +15,7 @@
       "/": {
         "get": {
           "tags": ["Ping"],
-          "description": "Gets API up and runing message\n",
+          "description": "Gets API up and runing messages\n",
           "produces": ["application/json"],
           "parameters": [],
           "responses": {
@@ -24,6 +24,27 @@
               "schema": {
                 "$ref": "#/definitions/inline_response_200"
               }
+            }
+          }
+        }
+      },
+      "/sources": {
+        "get": {
+          "tags": ["Sources"],
+          "description": "Gets all sources for tech events\n",
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "Sources propperly fetched",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/events_source"
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error"
             }
           }
         }
