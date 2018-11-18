@@ -8,12 +8,14 @@ module.exports = function(goblinDB) {
         cors: true
     }, function(gw) {
         
-        const from = moment(gw.req.query.from);
-        const to = moment(gw.req.query.to);
+        const fromValue = gw.req.query.from;
+        const toValue = gw.req.query.to;
 
         var filteredData = goblinDB.get("events");
 
-        if(gw.req.query.from) {
+        if(fromValue) {
+
+            const from = moment(fromValue).isValid() ? moment(fromValue) : moment(fromValue, "x");
             if(from.isValid()) {
                 filteredData = filteredData.filter(event => {
                     return moment(event.datetime).isAfter(from);                
@@ -21,10 +23,11 @@ module.exports = function(goblinDB) {
             } else {
                 gw.statusCode = 400;
                 gw.json({"msg": "La fecha inicio es incorrecta"});
-            }
-        }
+            }            
+        } 
         
-        if(gw.req.query.to) {
+        if(toValue) {
+            const to = moment(toValue).isValid() ? moment(toValue) : moment(toValue, "x");
             if(to.isValid()) {
                 filteredData = filteredData.filter(event => {
                     return moment(event.datetime).isBefore(to);                   
@@ -33,7 +36,7 @@ module.exports = function(goblinDB) {
                 gw.statusCode = 400;
                 gw.json({"msg": "La fecha fin es incorrecta"});
             }
-        }
+        } 
         
         gw.json(filteredData, {
             deep: 10

@@ -59,13 +59,13 @@
             "in": "query",
             "name": "from",
             "type": "string",
-            "description": "Fecha inicio  para filtrar eventos"
+            "description": "Fecha inicio  para filtrar eventos. Admite los siguientes formatos:\n - MM-DD-YYYY \n - millis"
             },
             {
               "in": "query",
               "name": "to",
               "type": "string",
-              "description": "Fecha fin  para filtrar eventos"
+              "description": "Fecha fin  para filtrar eventos.  Admite los siguientes formatos:\n - MM-DD-YYYY \n - millis"
               }
           ],
           "responses": {
