@@ -9,7 +9,7 @@ class MeetupSpider(CrawlSpider):
     name = 'meetup'
     allowed_domains = ['meetup.com']
     start_urls = ['https://www.meetup.com/find/events/tech/?allMeetups=false&radius=200&userFreeform=Madrid%2C+Espa%C3%B1a']
-
+ 
     def parse(self, response):
         tech_meetups = response.xpath('//div[@class="chunk"]')
         for tech_meetup in tech_meetups:
