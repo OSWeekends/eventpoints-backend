@@ -40,11 +40,11 @@ class MeetupSpider(CrawlSpider):
         #print()
         #print('****************')
 
-        details = response.xpath('//*[@id="block-medialab-theme-content"]/div/div').extract_first()
-        abstract = response.xpath('//*[@id="descripcion"]/div[1]/span/p[1]/span/').extract_first()
-        abstract_details = response.xpath('//*[@id="descripcion"]/div[1]/span/p[1]/span').extract()
+        #details = response.xpath('//*[@id="block-medialab-theme-content"]/div/div').extract_first()
+        #abstract = response.xpath('//*[@id="descripcion"]/div[1]/span/p[1]/span/').extract_first()
+        # abstract_details = response.xpath('//*[@id="descripcion"]/div[1]/span/p[1]/span').extract()
         event['host'] = ''
-        event['abstract'] = abstract #textwrap.shorten(abstract, width=157, placeholder="...")
+        event['abstract'] = 'esto es una prueba' #textwrap.shorten(abstract, width=157, placeholder="...")
         event['abstract_details'] = 'Pendiente de scrapear' #tengo que parsear todos los detalles
 
         event['location'] = {}
