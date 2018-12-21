@@ -45,29 +45,16 @@ class MeetupSpider(CrawlSpider):
         abstract_details = response.xpath('//*[@id="descripcion"]/div[1]/span/p[1]/span').extract()
         event['host'] = ''
         event['abstract'] = abstract #textwrap.shorten(abstract, width=157, placeholder="...")
-        event['abstract_details'] = '' #tengo que parsear todos los detalles
+        event['abstract_details'] = 'Pendiente de scrapear' #tengo que parsear todos los detalles
 
-        '''
-
-        #TODO: Podemos anyadir la hora inicio y la hora fin
-        event['datetime'] = response.xpath('//time/@datetime').extract_first()
-
-        location = response.xpath('//address/p/text()').extract()
         event['location'] = {}
-        event['location']['name'] = location[0]
-        event['location']['address'] = location[1]
+        event['location']['name'] = 'Medialab Prado'
+        event['location']['address'] = 'Calle Alameda 15, 28014 Madrid, España'
+        event['location']['query'] = '40.4105204,-3.6957741'
+        event['location']['lat'] = 40.4105204
+        event['location']['lng'] = -3.6957741
 
-        google_maps_url = response.xpath('//a[contains(@class, "venueDisplay")]/@href').extract_first()
-        google_maps_url_params = parse_qs(urlparse(google_maps_url.replace('%2C', ',')).query)
-        event['location']['query'] = google_maps_url_params['query'][0]
-
-        #TODO: A veces no vienen las coordenadas en la URL, buscar alternativa
-        google_maps_coordinates = google_maps_url_params['query'][0].split(',')
-
-        event['location']['lat'] = google_maps_coordinates[0]
-        event['location']['lng'] = google_maps_coordinates[1]
-
-        '''
+        event['datetime'] = 1545224400000
 
         yield event
 
