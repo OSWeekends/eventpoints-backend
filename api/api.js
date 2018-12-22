@@ -90,7 +90,7 @@ const goblinDB = GDB(config.dbConfig, err => {
 
             });        
         }
-    }).start();
+    });
 
     // */55 * * * * (cada 55 minutos)
     // 0 0 12 * * (a las 12:00 todos los día)
@@ -107,7 +107,6 @@ const goblinDB = GDB(config.dbConfig, err => {
         if(config.debugMode) {
             console.log("Ha habido cambios en la BD");
         }
-        //data = goblinDB.get("events");
     });
 
     harmonizerTask.launch();

@@ -8,7 +8,7 @@ from eventscraper.items import Event
 class MeetupSpider(CrawlSpider):
     name = 'meetup'
     allowed_domains = ['meetup.com']
-    start_urls = ['https://www.meetup.com/es-ES/find/events/tech/?category_names=tech&userFreeform=Madrid%2C+Espa%F1a&radius=150&events=true']
+    start_urls = ['https://www.meetup.com/es-ES/find/events/tech/?category_names=tech&userFreeform=Madrid%2C+Spain&radius=200&events=true']
     # start_urls = ['https://www.meetup.com/es-ES/find/events/tech/?allMeetups=false&userFreeform=Madrid%2C+Espa%C3%B1a&category_names=tech&radius=150&events=true']
  
     def parse(self, response):

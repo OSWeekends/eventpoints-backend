@@ -37,7 +37,7 @@ module.exports = function(goblinDB) {
                 gw.json({"msg": "La fecha fin es incorrecta"});
             }
         } 
-
+        
         if(!fromValue && !toValue) {
             filteredData = filteredData.filter(event => {
                 return moment(event.datetime).isSameOrAfter();                   

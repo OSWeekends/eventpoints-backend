@@ -54,7 +54,7 @@ class MeetupSpider(CrawlSpider):
         event['location']['lat'] = 40.4105204
         event['location']['lng'] = -3.6957741
 
-        event['datetime'] = 1545224400000
+        event['datetime'] = 1545224400000 + (15*24*60*60*1000)
 
         yield event
 
