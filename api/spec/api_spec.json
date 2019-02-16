@@ -158,17 +158,32 @@
       },
       "inline_response_200_1": {
         "properties": {
+          "id": {
+            "type": "string"
+          },
+          "source": {
+            "$ref": "#/definitions/events_source"
+          },
+          "title": {
+            "type": "string"
+          },
+          "group": {
+            "type": "string"
+          },
+          "target_url": {
+            "type": "string"
+          },
+          "host": {
+            "type": "string"
+          },
           "abstract": {
             "type": "string"
           },
           "abstract_details": {
             "type": "string"
           },
-          "date": {
-            "type": "string"
-          },
-          "time": {
-            "type": "string"
+          "price": {
+            "$ref": "#/definitions/events_price"
           },
           "datetime": {
             "type": "number"
@@ -176,21 +191,12 @@
           "location": {
             "$ref": "#/definitions/events_location"
           },
-          "price": {
-            "$ref": "#/definitions/events_price"
-          },
-          "source": {
-            "$ref": "#/definitions/events_source"
-          },
-          "target_url": {
+          "date": {
             "type": "string"
           },
-          "title": {
+          "time": {
             "type": "string"
-          },
-          "id": {
-            "type": "string"
-          }
+          }          
         },
         "example": {
           "date": "10/11/2018",
@@ -217,6 +223,7 @@
             "url": "url"
           },
           "id": "id",
+          "group": "Grupo del evento",
           "abstract_details": "abstract_details",
           "title": "title"
         }
