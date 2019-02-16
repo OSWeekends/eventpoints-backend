@@ -38,6 +38,7 @@ module.exports = function(config, goblinDB) {
             }
         } 
         
+        // Si no pasamos fechas de inicio, se devuelve todos los eventos a futuro
         if(!fromValue && !toValue) {
             filteredData = filteredData.filter(event => {
                 return moment(event.datetime).isSameOrAfter();                   
