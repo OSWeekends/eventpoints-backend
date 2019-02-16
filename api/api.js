@@ -54,12 +54,9 @@ const goblinDB = GDB(config.dbConfig, err => {
     const spiders = sources.map(s => s.id);
 
     // Cron Tasks
-
-    // */45 * * * * (cada 45 minutos)
-    // 0 30 11 * * (a las 11:30 todos los día)
     const pythonRocks = new Scheduled({
         id: "pythonRocks",
-        pattern: "*/3 * * * *",
+        pattern: config.scraperCron,
         task: function() {
             console.log(`---- Borro ficheros json! ------`);
             exec('cd ../scrapers/output && rm *.json', function(error, stdout, stderr) {
@@ -92,11 +89,9 @@ const goblinDB = GDB(config.dbConfig, err => {
         }
     });
 
-    // */55 * * * * (cada 55 minutos)
-    // 0 0 12 * * (a las 12:00 todos los día)
     const harmonizerTask = new Scheduled({
         id: "harmonizerTask",
-        pattern: "*/5 * * * *",
+        pattern: config.harmonizerCron,
         task: function() {
             harmonizer(goblinDB, sources, config.debugMode);
         }
