@@ -1,6 +1,6 @@
 const moment = require('moment');
 
-module.exports = function(goblinDB) {
+module.exports = function(config, goblinDB) {
  
     var eventsRouter = new Route({
         id: 'events',
@@ -44,9 +44,15 @@ module.exports = function(goblinDB) {
             });
         }
         
-        gw.json(filteredData, {
-            deep: 10
-        });
+        if(config.mockupData) {
+            gw.json(goblinDB.get("events"), {
+                deep:10
+            })
+        } else {                    
+            gw.json(filteredData, {
+                deep: 10
+            });
+        }
     });
 
     return eventsRouter;

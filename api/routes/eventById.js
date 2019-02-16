@@ -1,6 +1,6 @@
 var _ = require('lodash');
 
-module.exports = function(goblinDB) {
+module.exports = function(config, goblinDB) {
  
     var eventsRouter = new Route({
         id: 'event_by_id',
@@ -9,16 +9,21 @@ module.exports = function(goblinDB) {
     }, function(gw) {
 
         const data = goblinDB.get("events");
-        
-        var item = _.find(data, {id: gw.params.path});
 
-        if(!item) {
-            gw.statusCode = 404;
-            gw.json({});
-        } else {
+        if(config.mockupData) {
+            item = data[0];
+            item.id = gw.params.path;
             gw.json(item);
+        } else {
+            var item = _.find(data, {id: gw.params.path});
+        
+            if(!item) {
+                gw.statusCode = 404;
+                gw.json({});
+            } else {
+                gw.json(item);
+            }
         }
-
         
     });
 
