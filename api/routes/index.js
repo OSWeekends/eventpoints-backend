@@ -3,7 +3,7 @@ var indexRouter = new Route({
     path: '/api/v1/',
     cors: true
 }, function(gw) {
-    gw.json({message: "Up and runing"});
+    gw.json({message: "Up and runing - It works!"});
 });
 
 module.exports = indexRouter;
