@@ -38,8 +38,8 @@ const goblinDB = GDB(config.dbConfig, err => {
 
     // Define Rutes
     var pingRoute = require('./routes/index');
-    var eventsRoute = require('./routes/events')(goblinDB);
-    var eventByIdRoute = require('./routes/eventById')(goblinDB);
+    var eventsRoute = require('./routes/events')(config, goblinDB);
+    var eventByIdRoute = require('./routes/eventById')(config, goblinDB);
     var sourcesRoute = require('./routes/sources')(sources);
     var specRoute = require('./routes/spec')();
 
@@ -109,8 +109,11 @@ const goblinDB = GDB(config.dbConfig, err => {
         }
     });
 
-    harmonizerTask.launch();
-    pythonRocks.launch();
+    // Si no queremos mockup data, lanzamos los scrappers
+    if(!config.mockupData) {
+        harmonizerTask.launch();
+        pythonRocks.launch();
+    }    
 
 });
 
