@@ -53,10 +53,9 @@ class MeetupSpider(CrawlSpider):
         google_maps_url_params = parse_qs(urlparse(google_maps_url.replace('%2C', ',')).query)
         event['location']['query'] = google_maps_url_params['query'][0]
 
-        #TODO: A veces no vienen las coordenadas en la URL, buscar alternativa
-        google_maps_coordinates = google_maps_url_params['query'][0].split(',')
+        coordinates = response.xpath("//meta[@property='geo.position']/@content").extract_first().split(';')
 
-        event['location']['lat'] = google_maps_coordinates[0]
-        event['location']['lng'] = google_maps_coordinates[1]
+        event['location']['lat'] = coordinates[0]
+        event['location']['lng'] = coordinates[1]
 
         yield event
