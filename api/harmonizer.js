@@ -67,6 +67,7 @@ module.exports = function(goblinDB, sources, debugMode) {
                 @see https://lodash.com/docs/4.17.4#uniqBy
             */
            arrayEventos = _.uniqBy(arrayEventos, "target_url"); // Me va a cambiar el ID de eventos antiguos????
+           arrayEventos = _.sortBy(arrayEventos, (e) => e.datetime);
 
            if(debugMode) {
                 console.log("************ Tras eliminar eventos duplicados: " + arrayEventos.length);
