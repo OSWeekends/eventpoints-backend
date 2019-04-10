@@ -14,6 +14,7 @@ BOT_NAME = 'eventscraper'
 SPIDER_MODULES = ['eventscraper.spiders']
 NEWSPIDER_MODULE = 'eventscraper.spiders'
 
+FEED_EXPORT_ENCODING = 'utf-8'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'eventscraper (+http://www.yourdomain.com)'
