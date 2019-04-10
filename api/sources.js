@@ -6,9 +6,9 @@ module.exports = [
         "url": "https://www.meetup.com/es-ES/"
     },
     {
-        "id": "medialab-prado",
-        "name": "medialab-prado",
-        "logo": "https://www.medialab-prado.es/themes/custom/medialab_theme/img/logotipo@2x.jpg",
-        "url": "https://www.medialab-prado.es/"
+        "id": "eventbrite",
+        "name": "Eventbrite",
+        "logo": "https://www.eventbrite.com/wp-content/themes/core/img/blog-logo2x.png",
+        "url": "https://www.eventbrite.es/"
     }
 ];
