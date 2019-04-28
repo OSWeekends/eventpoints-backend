@@ -50,8 +50,9 @@ const goblinDB = GDB(config.dbConfig, err => {
     project.routes.add(sourcesRoute);
     project.routes.add(specRoute);
 
-    //Define here the array of scrappers
-    const spiders = sources.map(s => s.id);
+    //Define here the array of python scrapers
+    const spidersPy = sources.filter(s => s.type=='py').map(s => s.id);
+    console.log("Python", spidersPy);
 
     // Cron Tasks
     const pythonRocks = new Scheduled({
@@ -65,7 +66,7 @@ const goblinDB = GDB(config.dbConfig, err => {
                     console.log('Borrando error: ' + error);
                 } 
 
-                spiders.forEach(function (spider) {                    
+                spidersPy.forEach(function (spider) {                    
                         console.log(`---- Proceso hijo de ${spider} Iniciado! ------`);
                         exec('cd ../scrapers/ && scrapy crawl ' + spider + ' -o ../scrapers/output/' + spider + '.json', function(error, stdout, stderr) {
                             
