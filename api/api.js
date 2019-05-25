@@ -2,46 +2,46 @@ const project = require('pillars'),
     GDB = require('@goblindb/goblindb'),
     exec = require('child_process').exec,
     Scheduled = require('scheduled'),
-    harmonizer = require('./harmonizer.js');
+    harmonizer = require('./harmonizer.js'),
+    sources = require('./sources');
+    config = require('./config');
 
-const testData = require('./test_data.json');
-    
 // Starting the project
 const eventsApi = project.services.get('http').configure({
-    port: process.env.PORT || 3000
+    port: process.env.PORT || config.port
 })
 
 project.config.favicon = './favicon.ico';
+project.config.cors = true;
 
 eventsApi.start();
 
-const dbConfig = {
-    fileName: 'event_points'
-};
-
-const debugMode = false;
-
-
-const goblinDB = GDB(dbConfig, err => {
+const goblinDB = GDB(config.dbConfig, err => {
 
     if(err) {
         console.log("Error launching DB - will exit");
         exit();
     }
 
-    var data = goblinDB.get("events");
+    var data;
 
-    if(!data) {
-        data = testData;
-        goblinDB.set(data, "events");
+    if(config.mockupData) {
+        data = require('./test_data.json');
+    } else {
+        data = goblinDB.get("events");
+        if(!data) {
+            data = [];
+        }
     }
 
+    goblinDB.set(data, "events");
+
     // Define Rutes
-    const pingRoute = require('./routes/index');
-    const eventsRoute = require('./routes/events')(data);
-    const eventByIdRoute = require('./routes/eventById')(data);
-    const sourcesRoute = require('./routes/sources')();
-    const specRoute = require('./routes/spec')();
+    var pingRoute = require('./routes/index');
+    var eventsRoute = require('./routes/events')(config, goblinDB);
+    var eventByIdRoute = require('./routes/eventById')(config, goblinDB);
+    var sourcesRoute = require('./routes/sources')(sources);
+    var specRoute = require('./routes/spec')();
 
     // Adding routes objects to the project
     project.routes.add(pingRoute);
@@ -50,23 +50,26 @@ const goblinDB = GDB(dbConfig, err => {
     project.routes.add(sourcesRoute);
     project.routes.add(specRoute);
 
-    //Define here the array of scrappers
-    const spiders = ['meetup'];
+    //Define here the array of python scrapers
+    const spidersPy = sources.filter(s => s.type=='py').map(s => s.id);
+    console.log("Python", spidersPy);
 
     // Cron Tasks
     const pythonRocks = new Scheduled({
         id: "pythonRocks",
-        pattern: "0 0/5 0 ? * * *",
+        pattern: config.scraperCron,
         task: function() {
             console.log(`---- Borro ficheros json! ------`);
             exec('cd ../scrapers/output && rm *.json', function(error, stdout, stderr) {
-                if (error) {
+
+                if (error && config.debugMode) {
                     console.log('Borrando error: ' + error);
-                } else {
-                    spiders.forEach(function (spider) {                    
+                } 
+
+                spidersPy.forEach(function (spider) {                    
                         console.log(`---- Proceso hijo de ${spider} Iniciado! ------`);
                         exec('cd ../scrapers/ && scrapy crawl ' + spider + ' -o ../scrapers/output/' + spider + '.json', function(error, stdout, stderr) {
-                            console.log(`---- Proceso hijo de ${spider} terminado! -----`);
+                            
                             if (stdout) {
                                 console.log('stdout: ' + stdout);
                             }
@@ -78,29 +81,35 @@ const goblinDB = GDB(dbConfig, err => {
                             if (error) {
                                 console.log('exec error: ' + error);
                             }
+                            console.log(`---- Proceso hijo de ${spider} terminado! -----`);
                         });     
-                    });
-                }
+                });
+                
 
             });        
         }
-    }).start();
+    });
 
     const harmonizerTask = new Scheduled({
         id: "harmonizerTask",
-        pattern: "0 * 0 ? * * *",
+        pattern: config.harmonizerCron,
         task: function() {
-            harmonizer(goblinDB, debugMode);
+            harmonizer(goblinDB, sources, config.debugMode);
         }
     }).start();
 
     // Events supported
     goblinDB.on('change', function(changes){
-        data = goblinDB.get("events");
+        if(config.debugMode) {
+            console.log("Ha habido cambios en la BD");
+        }
     });
 
-    //harmonizerTask.launch();
-    //pythonRocks.launch();
+    // Si no queremos mockup data, lanzamos los scrappers
+    if(!config.mockupData) {
+        harmonizerTask.launch();
+        pythonRocks.launch();
+    }    
 
 });
 
