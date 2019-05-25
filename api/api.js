@@ -50,14 +50,18 @@ const goblinDB = GDB(config.dbConfig, err => {
     project.routes.add(sourcesRoute);
     project.routes.add(specRoute);
 
-    //Define here the array of python scrapers
+    //Define here the array of python and R scrapers
     const spidersPy = sources.filter(s => s.type=='py').map(s => s.id);
-    console.log("Python", spidersPy);
+    const spidersR = sources.filter(s => s.type=='r').map(s => s.id);
 
+    //////////////
     // Cron Tasks
+    //////////////
+
+    // Cron Python
     const pythonRocks = new Scheduled({
         id: "pythonRocks",
-        pattern: config.scraperCron,
+        pattern: config.pythonCron,
         task: function() {
             console.log(`---- Borro ficheros json! ------`);
             exec('cd ../scrapers/output && rm *.json', function(error, stdout, stderr) {
@@ -90,6 +94,34 @@ const goblinDB = GDB(config.dbConfig, err => {
         }
     });
 
+    // Cron R
+    const rTask = new Scheduled({
+        id: "rTask",
+        pattern: config.rCron,
+        task: function() {
+            spidersR.forEach(function (spider) {                    
+                console.log(`---- Proceso hijo de ${spider} Iniciado! ------`);
+                exec('cd ../scrapers/rscraper && R CMD BATCH ' + spider + '.R ../output/' + spider + '.json', function(error, stdout, stderr) {
+                    
+                    if (stdout) {
+                        console.log('stdout: ' + stdout);
+                    }
+    
+                    if (stderr) {
+                        console.log('stderr: ' + stderr);
+                    }
+    
+                    if (error) {
+                        console.log('exec error: ' + error);
+                    }
+                    console.log(`---- Proceso hijo de ${spider} terminado! -----`);
+                });     
+            });
+        }
+    }).start();
+
+
+    // Cron Harmonizer
     const harmonizerTask = new Scheduled({
         id: "harmonizerTask",
         pattern: config.harmonizerCron,
@@ -109,6 +141,7 @@ const goblinDB = GDB(config.dbConfig, err => {
     if(!config.mockupData) {
         harmonizerTask.launch();
         pythonRocks.launch();
+        //rTask.launch();
     }    
 
 });
