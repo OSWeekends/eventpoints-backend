@@ -19,5 +19,12 @@ module.exports = [
         "name": "Medialab Prado",
         "logo": "https://www.medialab-prado.es/themes/custom/medialab_theme/img/logotipo@2x.jpg",
         "url": "https://www.medialab-prado.es/"
+    },
+    {
+        "id": "google_campus",
+        "type": "py",
+        "name": "Google Campus",
+        "logo": "",
+        "url": "https://www.campus.co/madrid/es/"
     }
 ];
