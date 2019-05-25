@@ -2,22 +2,19 @@ import scrapy
 import textwrap
 from urllib.parse import urlparse, parse_qs
 from scrapy.spiders import CrawlSpider
-from eventscraper.items import Event
+from pythonscraper.items import Event
 
 
 class MeetupSpider(CrawlSpider):
     name = 'meetup'
     allowed_domains = ['meetup.com']
     start_urls = ['https://www.meetup.com/es-ES/find/events/tech/?category_names=tech&userFreeform=Madrid%2C+Spain&radius=200&events=true']
-    # start_urls = ['https://www.meetup.com/es-ES/find/events/tech/?allMeetups=false&userFreeform=Madrid%2C+Espa%C3%B1a&category_names=tech&radius=150&events=true']
- 
+    
     def parse(self, response):
         tech_meetups = response.xpath('//div[@class="chunk"]')
         for tech_meetup in tech_meetups:
             event = Event()
-            # TODO: El resto del objeto lo inserta el API.
-            event['source'] = 'meetup' 
-            
+            event['source'] = 'meetup'             
             event['title'] = tech_meetup.xpath('a/span/text()').extract_first()
             event['group'] = tech_meetup.xpath('div/a/span/text()').extract_first()
 
@@ -28,14 +25,11 @@ class MeetupSpider(CrawlSpider):
     @staticmethod
     def parse_details(response):
         event = response.meta['event']
-
         event['target_url'] = response.request.url
-
         details = response.xpath('//div[contains(@class, "event-description")]/p').extract_first()
         event['host'] = response.xpath('//div[contains(@class, "event-info-hosts-text")]/a/span/span/span/text()').extract_first()
         event['abstract'] = textwrap.shorten(details, width=150, placeholder="...")
         event['abstract_details'] = details
-
         event['price'] = {}
         event['price']['details'] = '0'
         event['price']['is_trusted'] = True
@@ -48,7 +42,6 @@ class MeetupSpider(CrawlSpider):
         event['location'] = {}
         event['location']['name'] = location[0]
         event['location']['address'] = location[1]
-
         google_maps_url = response.xpath('//a[contains(@class, "venueDisplay")]/@href').extract_first()
         google_maps_url_params = parse_qs(urlparse(google_maps_url.replace('%2C', ',')).query)
         event['location']['query'] = google_maps_url_params['query'][0]

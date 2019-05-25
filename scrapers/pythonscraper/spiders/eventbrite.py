@@ -3,7 +3,7 @@ import textwrap
 import calendar
 import re
 from scrapy.spiders import CrawlSpider
-from eventscraper.items import Event
+from pythonscraper.items import Event
 from dateutil.parser import parse
 
 class EventBrite(CrawlSpider):
