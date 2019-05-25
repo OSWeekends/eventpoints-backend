@@ -2,7 +2,13 @@
 
 # eventpoints-backend
 
-## Scraper
+El backend de Eventpoints se apoya en scraping para obtener datos de eventos tecnológicos de distintas fuentes.
+
+Dependiendo de la fuente de datos, el scraping se realiza con Python o con R.
+
+Se describe a continuación como montar la infraestructura para ejecutar los scrapers tanto de Python como de R, así como para instalar y ejecutar el API en si misma.
+
+## Scraper Python
 
 El scraper está hecho con Scrapy, una librería de Python.
 
@@ -43,6 +49,32 @@ ejecuciones habría que borrar el JSON si ya existe.
 Ejemplo de uso
 
 `scrapy crawl meetup -o output/meetup.json`
+
+## Scraper R
+
+El scraper está hecho con Scrapy, una librería de Python.
+
+#### Instalación
+
+Para instalar R (en Linux basado en Debian):
+
+* Instalar dependencias previas
+
+* Instalar R en si
+
+`apt install r-base`
+
+Arrancar el entorno de ejecución de R:
+
+`sudo -i R`
+
+Instalar las dependencias del scraper:
+
+`install.packages("tidyverse")`
+
+Ejecutar
+
+`R CMD BATCH scraping.R ../output/prueba.csv`
 
 ## API
 
