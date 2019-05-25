@@ -9,10 +9,10 @@
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'eventscraper'
+BOT_NAME = 'pythonscraper'
 
-SPIDER_MODULES = ['eventscraper.spiders']
-NEWSPIDER_MODULE = 'eventscraper.spiders'
+SPIDER_MODULES = ['pythonscraper.spiders']
+NEWSPIDER_MODULE = 'pythonscraper.spiders'
 
 FEED_EXPORT_ENCODING = 'utf-8'
 
