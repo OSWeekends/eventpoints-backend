@@ -29,8 +29,8 @@ class EventBrite(CrawlSpider):
             event['source'] = 'eventbrite'
             event['title'] = self.getTitle(response)
             event['group'] = self.cleanString(group_and_namelocation[0])
-            event['abstract'] = abstract
-            event['abstract_details'] = textwrap.shorten(abstract, width=150, placeholder="...")
+            event['abstract'] = textwrap.shorten(abstract, width=150, placeholder="...")
+            event['abstract_details'] = abstract
             event['target_url'] = response.request.url
             event['datetime'] = date_str
             event['location'] = location
