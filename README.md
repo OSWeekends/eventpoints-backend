@@ -1,6 +1,6 @@
 ![header](https://github.com/OSWeekends/agile-project-template/raw/master/other/img/OSW-project-GitHub-template-header.jpg)
 
-# eventpoints-backend
+# eventpoints-backend doc
 
 El backend de Eventpoints se apoya en scraping para obtener datos de eventos tecnológicos de distintas fuentes.
 
