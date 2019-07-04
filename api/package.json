@@ -5,7 +5,9 @@
   "main": "api.js",
   "scripts": {
     "start": "node api.js",
-    "test": "mocha -R spec tests/spec.js"
+    "test": "mocha -R spec tests/spec.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -18,11 +20,13 @@
     "lodash": "^4.17.11",
     "pillars": "^0.7.1",
     "scheduled": "*",
-    "uuid": "3.0.1"
+    "uuid": "3.0.1",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "superagent": "*",
     "mocha": "^5.2.0",
     "assert": "^1.4.1"
-  }
+  },
+  "snyk": true
 }
