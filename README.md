@@ -1,56 +1,56 @@
-![header](https://github.com/OSWeekends/agile-project-template/raw/master/other/img/OSW-project-GitHub-template-header.jpg)
+﻿![header](https://github.com/OSWeekends/agile-project-template/raw/master/other/img/OSW-project-GitHub-template-header.jpg)
 
 # eventpoints-backend
 
 ## Scraper
 
-El scraper está hecho con Scrapy, una librería de Python.
+The scraper is made with Scrapy, a Python library.
 
-#### Instalación
+#### Installation
 
-Versión recomendada de Python: 3.6
-Versión recomendada de Pip: 18.1
+recommended version of Python: 3.6
+recommended version of Pip: 18.1
 
-Creamos el venv
+We create the venv
 
 `python3 -m venv ./venv`
 
-Instalamos las dependencias
+We install the dependencies
 
 `pip3 install -r requirements.txt`
 
-Si usas Python 3.7, da un error que se puede solucionar ejecutando
+If you use Python 3.7, it gives an error that can be solved by running
 
 `pip3 install git+https://github.com/twisted/twisted.git@trunk`
 
-#### Uso
+#### Use
 
 [Scrapy Docs](https://doc.scrapy.org/en/latest/)
 
-##### Lanzamiento de spiders
+##### Spiders launch
 
 `scrapy crawl {spider_name} -o {json_path}`
 
-Siendo `spider_name` el nombre de la araña y `json_path` el JSON en el que se va a
-volcar el scrapeo. 
-Scrapy escribe al final del fichero por lo que en sucesivas
-ejecuciones habría que borrar el JSON si ya existe.
+Being `spider_name` the name of the spider and `json_path` the JSON in which you are going to
+overturn the scrapeo. 
+Scrapy writes at the end of the file, so in successive
+executions should delete the JSON if it already exists.
 
-Ejemplo de uso
+Use example
 
 `scrapy crawl meetup -o output/meetup.json`
 
 ## API
 
-El api está en el directorio `api`
+The api is in the `api` directory
 
-Para instalar las dependencias del API nos metemos en su directorio y ejecutamos: `npm install`
+To install the API dependencies we enter its directory and run: `npm install`
 
-Documentación de la API en swagger: http://localhost:3000/api/v1/spec
+API documentation in swagger: http://localhost:3000/api/v1/spec
 
-Para ejecutar el API: `npm start`
-Una vez lanzado la vemos en --> http://localhost:3000/api/v1/events
+To run the API: `npm start`
+Once launched we see it in --> http://localhost:3000/api/v1/events
 
-`#eventpoints_new` en Slack
+`#eventpoints_new` in Slack
 
 ![footer](https://github.com/OSWeekends/agile-project-template/raw/master/other/img/OSW-project-GitHub-template-footer.jpg)
