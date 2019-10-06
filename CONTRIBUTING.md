@@ -9,7 +9,7 @@ These are mostly guidelines, not rules. Use your best judgment, and feel free to
 
 
 ## Code of Conduct
-This project and everyone participating in it is governed by this [Code of Conduct](https://github.com/OSWeekends/eventpoints-backend/blob/master/CODE_OF_CONDUCT.md).  
+This project and everyone participating in it is governed by this [Code of Conduct](https://github.com/OSWeekends/osw-hacktoberfest-2019/blob/master/CODE_OF_CONDUCT.md).  
 By participating, you are expected to uphold this code. Please report unacceptable behavior to `osweekends@gmail.com`.
 
 ## What should I know before I get started?
