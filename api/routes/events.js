@@ -1,35 +1,59 @@
-module.exports = function(data) {
+const moment = require('moment');
+
+module.exports = function(config, goblinDB) {
  
     var eventsRouter = new Route({
-        id: 'staticRoute',
+        id: 'events',
         path: 'api/v1/events',
         cors: true
     }, function(gw) {
         
-        const from = new Date(gw.req.query.from);
-        const to = new Date(gw.req.query.to);
+        const fromValue = gw.req.query.from;
+        const toValue = gw.req.query.to;
 
-        var filteredData = data;
+        var filteredData = goblinDB.get("events");
 
-        if(!isNaN(from.getTime())) {
+        if(fromValue) {
+
+            const from = moment(fromValue).isValid() ? moment(fromValue) : moment(fromValue, "x");
+            if(from.isValid()) {
+                filteredData = filteredData.filter(event => {
+                    return moment(event.datetime).isAfter(from);                
+                });
+            } else {
+                gw.statusCode = 400;
+                gw.json({"msg": "La fecha inicio es incorrecta"});
+            }            
+        } 
+        
+        if(toValue) {
+            const to = moment(toValue).isValid() ? moment(toValue) : moment(toValue, "x");
+            if(to.isValid()) {
+                filteredData = filteredData.filter(event => {
+                    return moment(event.datetime).isBefore(to);                   
+                });
+            } else {
+                gw.statusCode = 400;
+                gw.json({"msg": "La fecha fin es incorrecta"});
+            }
+        } 
+        
+        // Si no pasamos fechas de inicio, se devuelve todos los eventos a futuro
+        if(!fromValue && !toValue) {
             filteredData = filteredData.filter(event => {
-                return new Date(event.date) >= from;                
+                return moment(event.datetime).isSameOrAfter();                   
             });
-        } else {
-            console.log("La fecha inicio es incorrecta");
         }
         
-        if(!isNaN(to.getTime())) {
-            filteredData = filteredData.filter(event => {
-                return new Date(event.date) <= to;                
+        if(config.mockupData) {
+            gw.json(goblinDB.get("events"), {
+                deep:10
+            })
+        } else {                    
+            gw.json(filteredData, {
+                deep: 10
             });
-        } else {
-            console.log("La fecha fin es incorrecta");
         }
-        
-        gw.json(filteredData, {
-            deep: 10
-        });
     });
 
     return eventsRouter;
