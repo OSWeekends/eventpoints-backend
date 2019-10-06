@@ -6,6 +6,6 @@
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 
-class EventscraperPipeline(object):
+class PythonscraperPipeline(object):
     def process_item(self, item, spider):
         return item
