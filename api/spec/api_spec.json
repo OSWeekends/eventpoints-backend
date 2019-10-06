@@ -10,12 +10,12 @@
       }
     },
     "basePath": "/api/v1",
-    "schemes": ["https"],
+    "schemes": ["http"],
     "paths": {
       "/": {
         "get": {
           "tags": ["Ping"],
-          "description": "Gets API up and runing message\n",
+          "description": "Gets API up and runing messages\n",
           "produces": ["application/json"],
           "parameters": [],
           "responses": {
@@ -24,6 +24,27 @@
               "schema": {
                 "$ref": "#/definitions/inline_response_200"
               }
+            }
+          }
+        }
+      },
+      "/sources": {
+        "get": {
+          "tags": ["Sources"],
+          "description": "Gets all sources for tech events\n",
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "Sources propperly fetched",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/events_source"
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error"
             }
           }
         }
@@ -38,13 +59,13 @@
             "in": "query",
             "name": "from",
             "type": "string",
-            "description": "Fecha inicio  para filtrar eventos"
+            "description": "Fecha inicio  para filtrar eventos. Admite los siguientes formatos:\n - MM-DD-YYYY \n - millis"
             },
             {
               "in": "query",
               "name": "to",
               "type": "string",
-              "description": "Fecha fin  para filtrar eventos"
+              "description": "Fecha fin  para filtrar eventos.  Admite los siguientes formatos:\n - MM-DD-YYYY \n - millis"
               }
           ],
           "responses": {
@@ -100,22 +121,22 @@
           "details": {
             "type": "string"
           },
-          "isFree": {
+          "is_free": {
             "type": "boolean"
           },
-          "isTrusted": {
+          "is_trusted": {
             "type": "boolean"
           }
         },
         "example": {
-          "isFree": true,
+          "is_free": true,
           "details": "details",
-          "isTrusted": true
+          "is_trusted": true
         }
       },
       "events_source": {
         "properties": {
-          "event_url": {
+          "id": {
             "type": "string"
           },
           "logo": {
@@ -137,56 +158,72 @@
       },
       "inline_response_200_1": {
         "properties": {
+          "id": {
+            "type": "string"
+          },
+          "source": {
+            "$ref": "#/definitions/events_source"
+          },
+          "title": {
+            "type": "string"
+          },
+          "group": {
+            "type": "string"
+          },
+          "target_url": {
+            "type": "string"
+          },
+          "host": {
+            "type": "string"
+          },
           "abstract": {
             "type": "string"
           },
           "abstract_details": {
             "type": "string"
           },
-          "date": {
-            "type": "string"
+          "price": {
+            "$ref": "#/definitions/events_price"
+          },
+          "datetime": {
+            "type": "number"
           },
           "location": {
             "$ref": "#/definitions/events_location"
           },
-          "price": {
-            "$ref": "#/definitions/events_price"
-          },
-          "source": {
-            "$ref": "#/definitions/events_source"
-          },
-          "target_url": {
+          "date": {
             "type": "string"
           },
-          "title": {
+          "time": {
             "type": "string"
-          },
-          "id": {
-            "type": "string"
-          }
+          }          
         },
         "example": {
-          "date": "date",
+          "date": "10/11/2018",
+          "time": "19:00",
+          "datetime": 1542304800000,
           "price": {
-            "isFree": true,
+            "is_free": true,
             "details": "details",
-            "isTrusted": true
+            "is_trusted": true
           },
           "target_url": "target_url",
           "location": {
-            "notes": "notes",
-            "lng": 6.02745618307040320615897144307382404804229736328125,
+            "address": "notes",            
             "name": "name",
-            "lat": 0.80082819046101150206595775671303272247314453125
+            "query": "40.444145,-3.667261",
+            "lat": "40.444145",
+            "lng": "-3.667261"
           },
           "abstract": "abstract",
           "source": {
             "name": "name",
             "logo": "logo",
-            "event_url": "event_url",
+            "id": "meetup",            
             "url": "url"
           },
           "id": "id",
+          "group": "Grupo del evento",
           "abstract_details": "abstract_details",
           "title": "title"
         }
@@ -205,23 +242,27 @@
       "events_location": {
         "properties": {
           "lat": {
-            "type": "number"
+            "type": "string"
           },
           "lng": {
-            "type": "number"
+            "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "notes": {
+          "address": {
+            "type": "string"
+          },
+          "query": {
             "type": "string"
           }
         },
         "example": {
-          "notes": "notes",
-          "lng": 6.02745618307040320615897144307382404804229736328125,
-          "name": "name",
-          "lat": 0.80082819046101150206595775671303272247314453125
+          "name": "IBM Client Center Madrid",
+            "address": "Calle Corazón de María, 44 (esquina con Santa Hortensia)",
+            "query": "40.444145,-3.667261",
+            "lat": "40.444145",
+            "lng": "-3.667261"
         }
       }
     }
