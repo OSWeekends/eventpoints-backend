@@ -14,6 +14,10 @@
 [![Code of conduct](https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square)](https://github.com/OSWeekends/eventpoints-backend/blob/master/CODE_OF_CONDUCT.md)
 ![GitHub](https://img.shields.io/github/license/OSWeekends/osw-hacktoberfest-2019?color=blue&style=flat-square)
 
+## Languages
+
+The English version of this Readme can be read in [here](https://github.com/OSWeekends/eventpoints-backend/blob/master/README-en.md).
+
 ## Sobre EventPoints
 
 EventPoints es uno de los proyectos desarrollados dentro de la comunidad [Open Source Weekends](http://osweekends.com/).
