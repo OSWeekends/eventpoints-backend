@@ -2,19 +2,62 @@
 
 # eventpoints-backend
 
-The Eventpoints backend relies on scraping to obtain data on technological events from different sources.
+[![Build Status](https://action-badges.now.sh/OSWeekends/osw-hacktoberfest-2019?action=Node%20CI)](https://github.com/OSWeekends/eventpoints-backend/actions)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/bb376a42-74ce-4038-ad1c-902a61c40550/deploy-status)](https://app.netlify.com/sites/osw-eventpoints/deploys)
+[![Style](https://img.shields.io/badge/code%20style-standard-brightgreen?style=flat-square)](https://img.shields.io/badge/code%20style-standard-brightgreen?style=flat-square)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/OSWeekends/eventpoints-backend/pulls)
+[![GitHub last commit](https://img.shields.io/github/last-commit/OSWeekends/osw-hacktoberfest-2019?style=flat-square)](https://github.com/OSWeekends/eventoints-backend/commits/dev)
+[![first-timers-only](https://img.shields.io/badge/first--timers--only-friendly-blue.svg?style=flat-square)](https://www.firsttimersonly.com/)
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/OSWeekends/eventpoints-backend?style=flat-square)
 
-Depending on the data source, the scraping will be made with Python or R.
+[![All Contributors](https://img.shields.io/badge/all_contributors-53-orange.svg?style=flat-square)](#contributors)
+[![Code of conduct](https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square)](https://github.com/OSWeekends/eventpoints-backend/blob/master/CODE_OF_CONDUCT.md)
+![GitHub](https://img.shields.io/github/license/OSWeekends/osw-hacktoberfest-2019?color=blue&style=flat-square)
 
-The following README describes how to set up the infrastructure to execute both Python and R scrapers, as well as how to install and run the API itself.
+## About Eventpoints
 
-# Languages
+ Eventpoints is one of the project developed within the [Open Source Weekends] community.
 
-There is also a spanish version of this README [here](https://github.com/OSWeekends/eventpoints-backend/blob/master/README.md)
+ [Open Source Weekends]:(http://osweekends.com/)
 
-## Scraper
+ [EventPoints](http://osw.eventpoints.netlify.com/) is a web calendar of technological events in Spain that uses scrapping techniques to read the available events from various sources.
 
-The scraper is made with Scrapy, a Python library.
+ EventPoints has two main repositories:
+
+ * **Backend:** This repository contains both the scraper and the API code that serves the events.
+
+ * **Frontend:** This [repository] contains a React application that uses this project [API] to query, filter and georeference different events.
+
+[repository]:(https://github.com/OSWeekends/EventPoints)
+[API]:(https://eventpoints-backend.osweekends.com/api/v1/spec)
+
+
+#### Languages
+
+There is also a Spanish version of this Readme [here](https://github.com/OSWeekends/eventpoints-backend/blob/master/README.md).
+
+## Repository structure
+
+The repository has two fundamental blocks structured in two different folders:
+
+* **api:** API Rest developed with Node.js, Pillarsjs and a GoblinDB database that serves the information obtained by the scrapers.
+* **scrapers:** Source code of the different scrapers of the project that store the information ones it has been obtained.
+
+## API
+
+The API can be found in the `api` directory.
+
+Run `npm install` from within the `api` directory to install dependencies.
+
+API documentation, created using Swagger, can be accessed at: http://localhost:3000/api/v1/spec
+
+To start, run the API using `npm start`, then access it at http://localhost:3000/api/v1/events
+
+
+
+## Python Scrapers
+
+There are many scrapers developed in Python using [Scrapy Library](https://doc.scrapy.org/en/latest/).
 
 #### Installation
 
@@ -33,11 +76,6 @@ If you're using Python 3.7, you'll get an error that you can solve by running
 
 `pip3 install git+https://github.com/twisted/twisted.git@trunk`
 
-#### Usage
-
-You can look for the Scrappy documentation here:
-
-[Scrapy Docs](https://doc.scrapy.org/en/latest/)
 
 ##### Launch Spiders
 
@@ -57,7 +95,7 @@ Scrapy appends data to the end of the JSON file at `json_path`. Therefore, you s
 
 #### R Installation
 
-If you want to run the scraper using R you should first install the R language.
+If you want to run the scraper using R (on Linux Debian based) you should first install the R language.
 
 * Install previous dependencies.
 
@@ -83,17 +121,20 @@ To execute in console one of the R spiders, we will execute the following comman
 
 Where `spider_name` is the name of the spider and `json_path` is the JSON where the scrap will be dumped.
 
+## Team
 
-## API
+- Facilitator:
+	- Daniel García (Slack:@DGJones / GitHub:[@danielgj](https://github.com/danielgj)))
+- Mentors:
+    - Daniel García (Slack:@DGJones / GitHub:[@danielgj](https://github.com/danielgj)))
+	- Jorge Baumann (Slack:@jbaumann / GitHub:[@baumannzone](https://github.com/baumannzone))
+	- Ricardo García-Duarte (Slack:@RicardoGDM / GitHub:[@rgarciaduarte](https://github.com/rgarciaduarte))
+	- Theba Gomez (Slack:@KoolTheba / GitHub:[@KoolTheba](https://github.com/KoolTheba))
+	- Ulises Gascon (Slack:@ulisesgascon / GitHub:[@UlisesGascon](https://github.com/UlisesGascon))
+- Slack channel: **#pr_eventpoints_new*
 
-The API can be found in the `api` directory.
 
-Run `npm install` from within the `api` directory to install dependencies.
 
-API documentation, created using Swagger, can be accessed at: http://localhost:3000/api/v1/spec
 
-To start, run the API using `npm start`, then access it at http://localhost:3000/api/v1/events
-
-`#eventpoints_new` in Slack
 
 ![footer](https://github.com/OSWeekends/agile-project-template/raw/master/other/img/OSW-project-GitHub-template-footer.jpg)
