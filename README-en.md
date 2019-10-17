@@ -23,7 +23,7 @@ If you're using Python 3.7, you'll get an error that you can solve by running
 
 `pip3 install git+https://github.com/twisted/twisted.git@trunk`
 
-#### Usage
+#### Use
 
 [Scrapy Docs](https://doc.scrapy.org/en/latest/)
 
@@ -33,7 +33,9 @@ If you're using Python 3.7, you'll get an error that you can solve by running
 
 With `spider_name` being the name of the spider and `json_path` being the JSON file in which the scraped data will be dumped in.
 
-As an example, the following command will create a spider named `meetup` and any scraped data will be dumped in `meetup.json`
+Use example 
+
+The following command will create a spider named `meetup` and any scraped data will be dumped in `meetup.json`
 
 `scrapy crawl meetup -o output / meetup.json`
 
@@ -41,13 +43,13 @@ Scrapy appends data to the end of the JSON file at `json_path`. Therefore, you s
 
 ## API
 
-The api can be found in the `api` directory.
+The api is in the `api` directory.
 
-Run `npm install` from within the `api` directory to install dependencies.
+To install dependencies, run `npm install` from within the `api` directory.
 
 API documentation, created using Swagger, can be accessed at: http://localhost:3000/api/v1/spec
 
-To start, run the API using `npm start`, then access it at http://localhost:3000/api/v1/events
+Use `npm start` to run the API, then access it at http://localhost:3000/api/v1/events
 
 `#eventpoints_new` in Slack
 
