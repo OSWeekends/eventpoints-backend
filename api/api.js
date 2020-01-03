@@ -12,7 +12,7 @@ const eventsApi = project.services.get('http').configure({
 })
 
 project.config.favicon = './favicon.ico';
-project.config.cors = true;
+project.config.cors = false;
 
 eventsApi.start();
 
