@@ -1,10 +1,10 @@
 const _ = require('lodash');
 
-module.exports = function(config, goblinDB) {
+module.exports = function(config, goblinDB, routePath) {
   const eventsRouter = new Route(
     {
       id: 'event_by_id',
-      path: 'api/v1/events/*:path',
+      path: routePath,
       cors: true,
     },
     function(gw) {

@@ -1,8 +1,8 @@
-module.exports = function(data) {
+module.exports = function(data, routePath) {
   const sourcesRouter = new Route(
     {
       id: 'staticRoute',
-      path: 'api/v1/sources',
+      path: routePath,
       cors: true,
     },
     function(gw) {

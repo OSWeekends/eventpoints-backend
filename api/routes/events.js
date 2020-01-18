@@ -1,10 +1,10 @@
 const moment = require('moment');
 
-module.exports = function(config, goblinDB) {
+module.exports = function(config, goblinDB, routePath) {
   const eventsRouter = new Route(
     {
       id: 'events',
-      path: 'api/v1/events',
+      path: routePath,
       cors: true,
     },
     function(gw) {

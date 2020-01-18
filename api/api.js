@@ -7,11 +7,13 @@ const sources = require('./sources');
 const config = require('./config');
 
 // Define Rutes
-const pingRoute = require('./routes/index');
+const pingRoute = require('./routes/ping');
 const eventsRoute = require('./routes/events');
 const eventByIdRoute = require('./routes/eventById');
+const eventBySourceRoute = require('./routes/eventBySource');
 const sourcesRoute = require('./routes/sources');
-const specRoute = require('./routes/spec');
+const specv1Route = require('./routes/spec');
+const specv2Route = require('./routes/specv2');
 
 const testData = require('./test_data.json');
 
@@ -45,11 +47,22 @@ const goblinDB = GDB(config.dbConfig, err => {
   goblinDB.set(data, 'events');
 
   // Adding routes objects to the project
-  project.routes.add(pingRoute);
-  project.routes.add(eventsRoute(config, goblinDB));
-  project.routes.add(eventByIdRoute(config, goblinDB));
-  project.routes.add(sourcesRoute(sources));
-  project.routes.add(specRoute());
+  // V1
+  project.routes.add(pingRoute('/api/v1/', 'V1 Up and runing'));
+  project.routes.add(eventsRoute(config, goblinDB, 'api/v1/events'));
+  project.routes.add(eventByIdRoute(config, goblinDB, 'api/v1/events/*:path'));
+  project.routes.add(sourcesRoute(sources, 'api/v1/sources'));
+  project.routes.add(specv1Route());
+
+  // V2
+  project.routes.add(pingRoute('/api/v2/', 'V2 Up and runing'));
+  project.routes.add(eventsRoute(config, goblinDB, 'api/v2/events'));
+  project.routes.add(
+    eventByIdRoute(config, goblinDB, 'api/v2/events/id/*:path')
+  );
+  project.routes.add(eventBySourceRoute(config, goblinDB));
+  project.routes.add(sourcesRoute(sources, 'api/v2/sources'));
+  project.routes.add(specv2Route());
 
   // Define here the array of python and R scrapers
   const spidersPy = sources.filter(s => s.type === 'py').map(s => s.id);

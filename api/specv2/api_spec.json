@@ -2,14 +2,14 @@
   "swagger": "2.0",
   "info": {
     "description": "API FOR EVENTPOINTS\n",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "title": "EventPoints API",
     "contact": {
       "name": "OSWeekends",
       "url": "http://www.osweekends.com"
     }
   },
-  "basePath": "/api/v1",
+  "basePath": "/api/v2",
   "schemes": [
     "http"
   ],
@@ -98,7 +98,7 @@
         }
       }
     },
-    "/events/{id}": {
+    "/events/id/{id}": {
       "get": {
         "tags": [
           "Events"
@@ -125,6 +125,43 @@
           },
           "404": {
             "description": "Event not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/events/source/{sourcename}": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "description": "Gets tech event by source\n",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "sourcename",
+            "in": "path",
+            "description": "Source name of events to fetch",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Events propperly fetched",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/inline_response_200_1"
+              }
+            }
+          },
+          "404": {
+            "description": "Events not found"
           },
           "500": {
             "description": "Internal Server Error"

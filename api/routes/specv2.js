@@ -1,10 +1,10 @@
 module.exports = function() {
   const specRoute = new Route({
-    id: 'specv1Path',
-    path: 'api/v1/spec/*:path',
+    id: 'specv2Path',
+    path: 'api/v2/spec/*:path',
     cors: true,
     directory: {
-      path: './spec',
+      path: './specv2',
       listing: true,
     },
   });
