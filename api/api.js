@@ -6,6 +6,15 @@ const harmonizer = require('./harmonizer.js');
 const sources = require('./sources');
 const config = require('./config');
 
+// Define Rutes
+const pingRoute = require('./routes/index');
+const eventsRoute = require('./routes/events');
+const eventByIdRoute = require('./routes/eventById');
+const sourcesRoute = require('./routes/sources');
+const specRoute = require('./routes/spec');
+
+const testData = require('./test_data.json');
+
 project.config.favicon = './favicon.ico';
 project.config.cors = false;
 
@@ -25,7 +34,7 @@ const goblinDB = GDB(config.dbConfig, err => {
   let data;
 
   if (config.mockupData) {
-    data = require('./test_data.json');
+    data = testData;
   } else {
     data = goblinDB.get('events');
     if (!data) {
@@ -35,19 +44,12 @@ const goblinDB = GDB(config.dbConfig, err => {
 
   goblinDB.set(data, 'events');
 
-  // Define Rutes
-  const pingRoute = require('./routes/index');
-  const eventsRoute = require('./routes/events')(config, goblinDB);
-  const eventByIdRoute = require('./routes/eventById')(config, goblinDB);
-  const sourcesRoute = require('./routes/sources')(sources);
-  const specRoute = require('./routes/spec')();
-
   // Adding routes objects to the project
   project.routes.add(pingRoute);
-  project.routes.add(eventsRoute);
-  project.routes.add(eventByIdRoute);
-  project.routes.add(sourcesRoute);
-  project.routes.add(specRoute);
+  project.routes.add(eventsRoute(config, goblinDB));
+  project.routes.add(eventByIdRoute(config, goblinDB));
+  project.routes.add(sourcesRoute(sources));
+  project.routes.add(specRoute());
 
   // Define here the array of python and R scrapers
   const spidersPy = sources.filter(s => s.type === 'py').map(s => s.id);
