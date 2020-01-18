@@ -5,7 +5,7 @@ const indexRouter = new Route(
     cors: true,
   },
   function(gw) {
-    gw.json({ message: 'Up and runing - With love from guilders!' });
+    gw.json({ message: 'Up and runing - NO SÉ SI FUNCIONA EL PIPELINE' });
   }
 );
 
