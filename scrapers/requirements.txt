@@ -19,7 +19,7 @@ pyasn1-modules==0.2.2
 pycparser==2.19
 PyDispatcher==2.0.5
 PyHamcrest==1.9.0
-pylint==2.1.1
+pylint==2.5.0
 pyOpenSSL==18.0.0
 python-dateutil==2.8.0
 queuelib==1.5.0
